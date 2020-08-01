@@ -43,6 +43,6 @@ If you want to purposefully trigger an <error>, you can also do that here.
 @set here=_holodeck/rooms/bob/name:Bob
 lsedit here=_holodeck/rooms/bob/desc
 .del 1 999
-All is bob.
+All is Bob.
 There are no exits.
 .end
