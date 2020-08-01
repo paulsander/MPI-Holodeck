@@ -3,9 +3,6 @@ To-Do List
 IN PROGRESS:
 
 
-Priority:
-Fix bug where holodeck turns off when 'dest' is blank.
-
 LATER:
 Add 'go' to the listing of obvious exits
 Add a discontinue/resume command to resume the last loaded program
