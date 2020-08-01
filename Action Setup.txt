@@ -65,6 +65,7 @@ lsedit here=_holodeck/scripts/commands/switch
                 {tell:
                     > The holodeck is already off!
                 },
+                {clearDetails}
                 {store:off,_holodeck/current,here}
                 {mbroadcast:deactivate,Off,Off}
             },
@@ -79,6 +80,7 @@ lsedit here=_holodeck/scripts/commands/switch
                         {mbroadcast:activate,{&arg},{getname:{&arg}}},
                         {mbroadcast:switch,{&arg},{getname:{&arg}}}
                     }
+                    {copyDetails:{&arg}}
                     {store:{&arg},_holodeck/current,here}
                     
                 }
@@ -109,6 +111,7 @@ lsedit here=_holodeck/scripts/commands/go
                         {tell:> Error! We're sorry\, the exit '{&arg}' on program '{currentProgram}' leads to an invalid destination of '{&dest}'.{nl}
                                 > Please report this to {name:{owner:here}}.},
                         {doExitMsg:{&arg},succ,{currentProgram},{getName:{currentProgram}}}
+                        {copyDetails:{&dest}}
                         {store:{&dest},_holodeck/current,here}
                         {tell:{holodesc}}
                     }

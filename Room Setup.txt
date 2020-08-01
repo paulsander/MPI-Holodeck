@@ -28,16 +28,23 @@ There's not much else here.
 A pathway leads <south> towards a giant bonfire.
 You can try to <spin> around in a circle, but you'll probably just wind up here again...
 If you want to purposefully trigger an <error>, you can also do that here.
+And now there is a [bed] here for you to look at. Fancy!
 .end
 @set here=_holodeck/rooms/tribal02/exits/south/dest:tribal01
 @set here=_holodeck/rooms/tribal02/exits/south/succ:You head down the path to the bonfire.
 @set here=_holodeck/rooms/tribal02/exits/south/osucc:{name:me} heads down the path to the bonfire.
+@set here=_holodeck/rooms/tribal02/exits/south/detail:A beaten dirt path that leads to a bonfire flickering in the distance.
 @set here=_holodeck/rooms/tribal02/exits/spin/dest:tribal02
 @set here=_holodeck/rooms/tribal02/exits/spin/succ:You spin around crazily and then fall over where you started.
 @set here=_holodeck/rooms/tribal02/exits/spin/osucc:{name:me} spins around crazily and then falls over where %s started.
+@set here=_holodeck/rooms/tribal02/exits/spin/detail:A huge open field that you can spin in to your heart's content.
 @set here=_holodeck/rooms/tribal02/exits/error/dest:errorDest
 @set here=_holodeck/rooms/tribal02/exits/error/succ:You spin around crazily and then fall over where you started.
 @set here=_holodeck/rooms/tribal02/exits/error/osucc:{name:me} spins around crazily and then falls over where %s started.
+@set here=_holodeck/rooms/tribal02/exits/error/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
+@set here=_holodeck/rooms/tribal02/exits/error2/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
+@set here=_holodeck/rooms/tribal02/details/bed:This is a nice, soft bed for when you're tired of doing ritual bonfire stuff.
+
 
 
 @set here=_holodeck/rooms/bob/name:Bob

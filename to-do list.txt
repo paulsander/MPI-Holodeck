@@ -1,7 +1,7 @@
 To-Do List
 
 IN PROGRESS:
-    Add details support
+
 
 Priority:
 Fix bug where holodeck turns off when 'dest' is blank.

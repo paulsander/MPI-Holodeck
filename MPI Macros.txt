@@ -44,3 +44,28 @@ lsedit here=_holodeck/scripts/functions/doExitMsg
 @set here=_msgmacs/str/TakeFirst:{midstr:{strip:{:1}},1,{subt:{instr:{strip:{:1}},{if:{:2},{:2}, }},1}}
 @set here=_msgmacs/str/TakeRest:{midstr:{strip:{:1}},{add:{instr:{strip:{:1}},{if:{:2},{:2}, }},1},{strlen:{strip:{:1}}}}
 
+@set here=_msgmacs/clearDetails:{delprop:_details,here}
+
+@set here=_msgmacs/copyDetails:{func:cpyDetHlpr,pcode,{lexec:_holodeck/scripts/functions/copyDetails,here}}{cpyDetHlpr:{:1}}
+lsedit here=_holodeck/scripts/functions/copyDetails
+.del 1 999
+{clearDetails}
+{with:dets,{parse:curr,{listprops:_holodeck/rooms/{&pcode}/details,here},{subst:{&curr},_holodeck/rooms/{&pcode}/details/,}},
+    {foreach:curr,{&dets},
+        {store:{prop:_holodeck/rooms/{&pcode}/details/{&curr},here},_details/{&curr},here}
+    }
+}
+{with:exits,{getExits:{&pcode}},
+    {with:currentDetail,"",
+        {foreach:currExit,{&exits},
+            {set:currentDetail,
+                {prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/detail,here}
+            }
+            {if:{eq:{&currentDetail},},
+                {set:currentDetail,You see the exit for '{&currExit}' that leads to '{prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/dest,here}'}
+            }
+            {store:{&currentDetail},_details/{&currExit},here}
+        }
+    }
+}
+.end
