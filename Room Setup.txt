@@ -1,0 +1,48 @@
+lsedit here=_holodeck/default/desc
+.del 1 999
+You are in a large black room with an orange grid covering all of the walls and ceilings. A holodeck panel is embedded in the wall by the entrance. A single green light pulses on it, indicating it is ready to receive instructions.
+.end
+
+@set here=_holodeck/default/messages/activate:You ask the computer to run %programname (%programcode), and a soft hum winds up as it starts the program.
+@set here=_holodeck/default/messages/oactivate:{name:me} asks the computer to run %programname (%programcode), and a soft hum winds up as it starts the program.
+@set here=_holodeck/default/messages/deactivate:You shut down the holodeck, and a faint humming sound winds down as it goes to its original state.
+@set here=_holodeck/default/messages/odeactivate:{name:me} shuts down the holodeck, and a faint humming sound winds down as it returns to its original state.
+@set here=_holodeck/default/messages/switch:You change the holodeck program to %programname (%programcode).
+@set here=_holodeck/default/messages/oswitch:{name:me} changes the holodeck program to %programname (%programcode).
+
+@set here=_holodeck/rooms/:
+@set here=_holodeck/rooms/tribal01/name:Tribal Ritual Bonfire
+lsedit here=_holodeck/rooms/tribal01/desc
+.del 1 999
+There's a huge bonfire here.
+There's some other stuff roo.
+A pathway leads <north> away from the fire.
+.end
+@set here=_holodeck/rooms/tribal01/exits/north/dest:tribal02
+
+@set here=_holodeck/rooms/tribal02/name:Village Resting Place
+lsedit here=_holodeck/rooms/tribal02/desc
+.del 1 999
+There's a quiet resing place.
+There's not much else here.
+A pathway leads <south> towards a giant bonfire.
+You can try to <spin> around in a circle, but you'll probably just wind up here again...
+If you want to purposefully trigger an <error>, you can also do that here.
+.end
+@set here=_holodeck/rooms/tribal02/exits/south/dest:tribal01
+@set here=_holodeck/rooms/tribal02/exits/south/succ:You head down the path to the bonfire.
+@set here=_holodeck/rooms/tribal02/exits/south/osucc:{name:me} heads down the path to the bonfire.
+@set here=_holodeck/rooms/tribal02/exits/spin/dest:tribal02
+@set here=_holodeck/rooms/tribal02/exits/spin/succ:You spin around crazily and then fall over where you started.
+@set here=_holodeck/rooms/tribal02/exits/spin/osucc:{name:me} spins around crazily and then falls over where %s started.
+@set here=_holodeck/rooms/tribal02/exits/error/dest:errorDest
+@set here=_holodeck/rooms/tribal02/exits/error/succ:You spin around crazily and then fall over where you started.
+@set here=_holodeck/rooms/tribal02/exits/error/osucc:{name:me} spins around crazily and then falls over where %s started.
+
+
+@set here=_holodeck/rooms/bob/name:Bob
+lsedit here=_holodeck/rooms/bob/desc
+.del 1 999
+All is bob.
+There are no exits.
+.end

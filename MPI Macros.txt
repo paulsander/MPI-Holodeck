@@ -1,0 +1,43 @@
+@set here=_msgmacs/:
+
+@set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}}}
+@set here=_msgmacs/getVersion:{prop:_holodeck/version,here}
+@set here=_msgmacs/dispatch:{lexec:_holodeck/scripts/commands/{&cmd}}
+
+)) 1 - propdir, 2 - message type, 3 - programcode, 4 - programname, 5 - suffix message
+@set here=_msgmacs/broadcast:{null:{tell:{eval:{doSubsts:{prop:{:1}{:2}},{:3},{:4}}}{:5}}{otell:{eval:{doSubsts:{prop:{:1}o{:2}},{:3},{:4}}}{:5}}}
+)) 
+@set here=_msgmacs/mbroadcast:{broadcast:_holodeck/default/messages/,{:1},{:2},{:3}}
+)) 1 - message type, 2 - programcode, 3 - programname
+@set here=_msgmacs/ebroadcast:{debugif:0,{broadcast:_holodeck/rooms/{currentProgram}/exits/{:1}/,{:2},{:3},{:4}, ((New description))}}
+
+)) 1 - exit name, 2 - message type, 3 - programcode, 4 - programname
+@set here=_msgmacs/doExitMsg:{func:exitHlpr,exitName,msgType,pcode,pname,{lexec:_holodeck/scripts/functions/doExitMsg,here}}{exitHlpr:{:1},{:2},{:3},{:4}}
+lsedit here=_holodeck/scripts/functions/doExitMsg
+.del 1 999
+{with:succMsg,{prop:_holodeck/rooms/{currentProgram}/exits/{&exitName}/{&msgType}},
+    {if:{eq:{&succMsg},},{set:succMsg,You take the exit '{&exitName}'.}}
+    {with:oSuccMsg,{prop:_holodeck/rooms/{currentProgram}/exits/{&exitName}/o{&msgType}},
+        {if:{eq:{&oSuccMsg},},{set:oSuccMsg,{name:me} takes the exit '{&exitName}'.}}
+        {set:oSuccMsg,{&oSuccMsg} ((New room description))}
+        {tell:{pronouns:{eval:{doSubsts:{&succMsg},{&pcode},{&pname}}}}}
+        {otell:{pronouns:{eval:{doSubsts:{&oSuccMsg},{&pcode},{&pname}}}}}
+    }
+}
+.end
+
+// 1 - input string, 2 - program code, 3 - programname
+@set here=_msgmacs/doSubsts:{subst:{subst:{:1},%programcode,{:2}},%programname,{:3}}
+
+@set here=_msgmacs/getRoomList:{parse:curr,{listprops:_holodeck/rooms/,here},{subst:{&curr},_holodeck/rooms/,}}
+
+@set here=_msgmacs/currentProgram:{with:val,{prop:_holodeck/current,here},{if:{eq:{&val},},Off,{&val}}}
+
+@set here=_msgmacs/isOff?:{eq:off,{currentProgram}}
+
+@set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{prop:_holodeck/rooms/{:1}/name}}
+@set here=_msgmacs/getExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{subst:{&curr},_holodeck/rooms/{:1}/exits/,}}
+
+@set here=_msgmacs/str/TakeFirst:{midstr:{strip:{:1}},1,{subt:{instr:{strip:{:1}},{if:{:2},{:2}, }},1}}
+@set here=_msgmacs/str/TakeRest:{midstr:{strip:{:1}},{add:{instr:{strip:{:1}},{if:{:2},{:2}, }},1},{strlen:{strip:{:1}}}}
+

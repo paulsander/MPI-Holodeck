@@ -1,0 +1,155 @@
+@desc here={holodesc}
+@set here=_holodeck/version:0.1.0
+
+@action admin;status;list;switch;go=here
+@link status=$nothing
+@lock status=me&!me
+
+@action leave=here
+@link leave=home
+@set leave=D
+@succ leave=You touch a button on the holodeck controls and are whisked away.
+@osucc leave=touches a button on the holodeck controls and is whisked away.
+
+@create Holodeck Panel
+@lock Holodeck Panel=me&!me
+@desc holodeck panel={eval:{list:redesc}}
+lsedit holodeck panel=redesc
+.del 1 999
+{center:[Holodeck Program (v{getVersion})],78,~}
+A small metal panel is embedded in the wall, with a small readout and several brightly colored buttons beneath it. It hides itself away when a program is running, but can be called forth at any time with a vocal command.
+Available Commands:
+status:           Check the current running program and available exits.
+list:             List all available holodeck programs.
+switch <program>: Switch to the specified program.
+switch off:       Turn the holodeck off.
+go <exit name>:   'Move' to the specified exit (this is an 'IC' alias for
+                  switch, but will only allow you to move to exits presented
+                  in the current room.)
+leave:            Leaves the holodeck.
+.end
+drop holodeck panel
+
+@fail here={debugif:{prop:debug},{dispatch:{&cmd}}}
+
+
+lsedit here=_holodeck/scripts/commands/admin
+.del 1 999
+{null:
+	{tell:Cmd 'admin' - Arg [{&arg}]! First is [{str/takefirst:{&arg}}]}
+}
+.end
+
+lsedit here=_holodeck/scripts/commands/status
+.del 1 999
+{null:
+    {tell:
+        [Holodeck Status]{nl}
+        {lit: }{nl}
+        {if:{isOff?},
+            The holodeck is currently off!{nl}
+            Use 'list' to find a program to run\, and 'switch <program>' to run it!,
+            You are currently running: {getName:{currentProgram}} ({currentProgram}){nl}
+            The available exits are: {commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}{nl}
+            You can use 'go <exit name>' to move to that room.
+        }
+	}
+}
+.end
+
+lsedit here=_holodeck/scripts/commands/list
+.del 1 999
+{null:
+    {tell:{nl}{center:[Holodeck Program Listing (beta listing)],78,-}{nl}}
+    {with:maxlength,0,
+        {foreach:
+            curr,
+            {getRoomList},
+            {set:maxlength,{max:{&maxlength},{strlen:{&curr}}}}
+        }
+        {foreach:
+            curr,
+            {getRoomList},
+            {tell:
+                {left:{&curr},{&maxlength}}
+                {lit: - }
+                {getName:{&curr}}{nl}
+            }
+        }
+    }
+}
+.end
+
+
+
+lsedit here=_holodeck/scripts/commands/switch
+.del 1 999
+{null:
+    {set:arg,{strip:{&arg}}}
+	{if:
+        {eq:{&arg},},
+        {tell:
+            > Syntax for switch is:{nl}
+            > switch off:       Turn the holodeck off.{nl}
+            > switch <program>: Switch to the specified program.{nl}
+        },
+        {if:
+            {eq:{&arg},off},
+            {if:
+                {eq:{currentProgram},off},
+                {tell:
+                    > The holodeck is already off!
+                },
+                {store:off,_holodeck/current,here}
+                {mbroadcast:deactivate,Off,Off}
+            },
+            {if:
+                {not:{propdir:_holodeck/rooms/{&arg},here}},
+                {tell:> That program doesn't exist! Type 'list' to see all the programs.},
+                {if:
+                    {eq:{currentProgram},{&arg}},
+                    {tell:> Error! Holodeck is already set to that program.},
+                    {if:
+                        {isOff?},
+                        {mbroadcast:activate,{&arg},{getname:{&arg}}},
+                        {mbroadcast:switch,{&arg},{getname:{&arg}}}
+                    }
+                    {store:{&arg},_holodeck/current,here}
+                    
+                }
+            }
+        }
+    }
+}
+.end
+
+
+
+lsedit here=_holodeck/scripts/commands/go
+.del 1 999
+{null:
+    {set:arg,{strip:{&arg}}}
+    {if:
+        {eq:{&arg},},
+        {tell:> Where do you want to go? (type 'go <exit>' to change locations.)},
+        {if:
+            {isOff?},
+            {tell:> The holodeck is off! You can switch it on with 'switch <program>'.},
+            {if:
+                {not:{lmember:{getExits:{currentProgram}},{&arg}}},
+                {tell:> That isn't a valid exit!},
+                {with:dest,{prop:_holodeck/rooms/{currentProgram}/exits/{&arg}/dest,here},
+                    {if:
+                        {not:{propdir:_holodeck/rooms/{&dest},here}},
+                        {tell:> Error! We're sorry\, the exit '{&arg}' on program '{currentProgram}' leads to an invalid destination of '{&dest}'.{nl}
+                                > Please report this to {name:{owner:here}}.},
+                        {doExitMsg:{&arg},succ,{currentProgram},{getName:{currentProgram}}}
+                        {store:{&dest},_holodeck/current,here}
+                        {tell:{holodesc}}
+                    }
+                }
+            }
+        }
+    }
+}
+.end
