@@ -1,38 +1,3 @@
-@desc here={holodesc}
-@set here=_holodeck/version:0.1.0
-
-@action admin;status;list;switch;go=here
-@link status=$nothing
-@lock status=me&!me
-
-@action leave=here
-@link leave=home
-@set leave=D
-@succ leave=You touch a button on the holodeck controls and are whisked away.
-@osucc leave=touches a button on the holodeck controls and is whisked away.
-
-@create Holodeck Panel
-@lock Holodeck Panel=me&!me
-@desc holodeck panel={eval:{list:redesc}}
-lsedit holodeck panel=redesc
-.del 1 999
-{center:[Holodeck Program (v{getVersion})],78,~}
-A small metal panel is embedded in the wall, with a small readout and several brightly colored buttons beneath it. It hides itself away when a program is running, but can be called forth at any time with a vocal command.
-Available Commands:
-status:           Check the current running program and available exits.
-list:             List all available holodeck programs.
-switch <program>: Switch to the specified program.
-switch off:       Turn the holodeck off.
-go <exit name>:   'Move' to the specified exit (this is an 'IC' alias for
-                  switch, but will only allow you to move to exits presented
-                  in the current room.)
-leave:            Leaves the holodeck.
-.end
-drop holodeck panel
-
-@fail here={debugif:{prop:debug},{dispatch:{&cmd}}}
-
-
 lsedit here=_holodeck/scripts/commands/admin
 .del 1 999
 {null:
