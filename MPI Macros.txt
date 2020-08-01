@@ -1,6 +1,6 @@
 @set here=_msgmacs/:
 
-@set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}}}
+@set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}{nl}}{obvExits}}
 @set here=_msgmacs/getVersion:{prop:_holodeck/version,here}
 @set here=_msgmacs/dispatch:{lexec:_holodeck/scripts/commands/{&cmd}}
 
@@ -37,6 +37,9 @@ lsedit here=_holodeck/scripts/functions/doExitMsg
 
 @set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{prop:_holodeck/rooms/{:1}/name}}
 @set here=_msgmacs/getExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{subst:{&curr},_holodeck/rooms/{:1}/exits/,}}
+@set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}
+@set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits: {&fExits} ]}}
+
 
 @set here=_msgmacs/str/TakeFirst:{midstr:{strip:{:1}},1,{subt:{instr:{strip:{:1}},{if:{:2},{:2}, }},1}}
 @set here=_msgmacs/str/TakeRest:{midstr:{strip:{:1}},{add:{instr:{strip:{:1}},{if:{:2},{:2}, }},1},{strlen:{strip:{:1}}}}

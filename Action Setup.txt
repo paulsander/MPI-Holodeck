@@ -50,7 +50,7 @@ lsedit here=_holodeck/scripts/commands/status
             The holodeck is currently off!{nl}
             Use 'list' to find a program to run\, and 'switch <program>' to run it!,
             You are currently running: {getName:{currentProgram}} ({currentProgram}){nl}
-            The available exits are: {commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}{nl}
+            The available exits are: {fmtExits}{nl}
             You can use 'go <exit name>' to move to that room.
         }
 	}
