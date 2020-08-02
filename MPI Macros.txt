@@ -35,7 +35,9 @@ lsedit here=_holodeck/scripts/functions/doExitMsg
 
 @set here=_msgmacs/isOff?:{eq:off,{currentProgram}}
 
-@set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{prop:_holodeck/rooms/{:1}/name}}
+@set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{with:val,{prop:_holodeck/rooms/{:1}/name},{if:{eq:{&val},},{:1},{&val}}}}
+@set here=_msgmacs/cleanName:{lcommon:{:1},{getRoomList}}
+
 @set here=_msgmacs/getExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{subst:{&curr},_holodeck/rooms/{:1}/exits/,}}
 @set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}
 @set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits ('go <exit>'): {&fExits} ]}}
@@ -62,7 +64,7 @@ lsedit here=_holodeck/scripts/functions/copyDetails
                 {prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/detail,here}
             }
             {if:{eq:{&currentDetail},},
-                {set:currentDetail,You see the exit for '{&currExit}' that leads to '{prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/dest,here}'}
+                {set:currentDetail,You see the exit for '{&currExit}' that leads to '{cleanName:{prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/dest,here}}'.}
             }
             {store:{&currentDetail},_details/{&currExit},here}
         }

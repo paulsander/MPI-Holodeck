@@ -33,23 +33,19 @@ lsedit here=_holodeck/scripts/commands/list
             {set:maxlength,{max:{&maxlength},{strlen:{&curr}}}}
         }
         {foreach:currZone,{getZoneList},
-            {tell: {&currZone}/}
+            {tell:{&currZone}/}
             {foreach:currRoom,{getZoneRooms:{&currZone}},
                 {tell:
                     {lit:  }
                     {left:{&currRoom},{&maxlength}}
-                    {lit: - }
-                    {getName:{&currRoom}}{nl}
                 }
             }
         }
-        {tell: (Uncategorized)/}
+        {tell:(Uncategorized)/}
         {foreach:currRoom,{getZoneRooms},
             {tell:
                 {lit:  }
                 {left:{&currRoom},{&maxlength}}
-                {lit: - }
-                {getName:{&currRoom}}{nl}
             }
         }
     }
@@ -86,6 +82,7 @@ lsedit here=_holodeck/scripts/commands/switch
                 {if:
                     {eq:{currentProgram},{&arg}},
                     {tell:> Error! Holodeck is already set to that program.},
+                    {set:arg,{cleanName:{&arg}}}
                     {if:
                         {isOff?},
                         {mbroadcast:activate,{&arg},{getname:{&arg}}},
@@ -124,6 +121,7 @@ lsedit here=_holodeck/scripts/commands/go
                         },
                         {tell:> Error! We're sorry\, the exit '{&arg}' on program '{currentProgram}' leads to an invalid destination of '{&dest}'.{nl}
                                 > Please report this to {name:{owner:here}}.},
+                        {set:dest,{cleanName:{&dest}}}
                         {doExitMsg:{&arg},succ,{currentProgram},{getName:{currentProgram}}}
                         {copyDetails:{&dest}}
                         {store:{&dest},_holodeck/current,here}
