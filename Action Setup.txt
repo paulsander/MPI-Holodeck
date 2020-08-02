@@ -25,29 +25,41 @@ lsedit here=_holodeck/scripts/commands/status
 lsedit here=_holodeck/scripts/commands/list
 .del 1 999
 {null:
-    {tell:{nl}{center:[Holodeck Program Listing (beta listing)],78,-}{nl}}
-    {with:maxlength,0,
-        {foreach:
-            curr,
-            {getRoomList},
+    {tell:{nl}/{center:[Holodeck Program Listing],78,-}\\{nl}}
+    {with:maxLength,0,
+    {with:columnNum,0,
+    {with:maxSectCount,0,
+        {foreach:curr, {getRoomList},
             {set:maxlength,{max:{&maxlength},{strlen:{&curr}}}}
         }
         {foreach:currZone,{getZoneList},
-            {tell:{&currZone}/}
-            {foreach:currRoom,{getZoneRooms:{&currZone}},
-                {tell:
-                    {lit:  }
-                    {left:{&currRoom},{&maxlength}}
-                }
-            }
+            {set:maxSectCount,{max:{&maxSectCount},{count:{getZoneRooms:{&currZone}}}}}
         }
-        {tell:(Uncategorized)/}
-        {foreach:currRoom,{getZoneRooms},
-            {tell:
-                {lit:  }
-                {left:{&currRoom},{&maxlength}}
-            }
+        {set:maxSectCount, {max:{&maxSectCount},{count:{getZoneRooms}}}}
+
+        {set:columnNum,{div:76,{&maxLength}}}
+        {null:This is checking if I have enough space for the padding between names.}
+        {null: {76 - (columnNum * maxLength)} < (columnNum - 1) * 3 }
+        {if:
+            {lt:{subt:76,{mult:{&columnNum},{&maxLength}}},{mult:{subt:{&columnNum},1},3}},
+            {dec:columnNum}
         }
+        {set:columnNum,{min:{&maxSectCount},{&columnNum}}}
+
+        {foreach:currZone,{getZoneList},
+            {tell:| {center:{&currZone},76} |}
+            {tell:+{center:,78,-}+}
+            {varColPrnt:{getZoneRooms:{&currZone}},80,{&columnNum},| , | , |}
+            {tell:+{center:,78,-}+}
+        }
+        {if:{count{getZoneRooms}},
+            {tell:| {center:(Uncategorized),76} |}
+            {tell:+{center:,78,-}+}
+            {varColPrnt:{getZoneRooms},80,{&columnNum},| , | , |}
+        }
+        {tell:\\{center:,78,-}/}
+    }
+    }
     }
 }
 .end

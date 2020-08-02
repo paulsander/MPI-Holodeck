@@ -77,3 +77,65 @@ lsedit here=_holodeck/scripts/functions/copyDetails
 @set here=_msgmacs/getZoneList:{lsort:{lremove:{lunique:{parse:curr,{listprops:_holodeck/rooms/,here},{prop:{&curr}/zone,here}}},\r}}
 )) 1 - The zone to get the rooms for. Leave blank to get rooms without a zone.
 @set here=_msgmacs/getZoneRooms:{parse:currParse,{filter:curr,{listprops:_holodeck/rooms/,here},{eq:{prop:{&curr}/zone,here},{:1}}},{subst:{&currPArse},_holodeck/rooms/,}}
+
+)) 1 - the list to pad, 2 - the length to pad out, 3? - the text to pad with; defaults to " ", 4? - seperator, defaults to "\r"
+@set here=_msgmacs/lPad:{func:lPadHlpr,list,newLength,pad,sep,{lexec:_holodeck/scripts/functions/lPad,here}}{lPadHlpr:{:1},{:2},{:3},{:4}}
+lsedit here=_holodeck/scripts/functions/lPad
+.del 1 999
+{null:
+{for:i,1,{subt:{&newLength},{count:{&list},{sep?:{&sep}}}},1,
+    {set:list,{&list}{sep?:{&sep}}{pad?:{&pad}, }}
+}
+}
+{&list}
+.end
+)) 1 - the list to pad, 2 - the length to pad out, 3? - the text to pad with; defaults to " ", 4? - seperator, defaults to "\r"
+@set here=_msgmacs/lPad:{with:plList,{:1},{null:{for:i,1,{subt:{:2},{count:{:1},{default:{:4},\r}}},1,{set:plList,{&plList}{default:{:4},\r}{default:{:3}, }}        }    }{&plList}}
+
+
+)) 1 - the list to join, 2 - the text to join with, 3? - list separator, defaults to \r
+@set here=_msgmacs/ljoin:{subst:{:1},{sep?:{:3}},{:2}}
+
+@set here=_msgmacs/sep?:{default:{:1},\r}
+@set here=msgmacs/pad?:{default:{:1},{:2}}
+
+
+
+)) 1  - The list to print
+)) 2  - Total width to print to
+)) 3  - Number of columns to print
+)) 4  - left margin
+)) 5  - column padding
+)) 6? - right margin (defaults to mirror of left column)
+@set here=_msgmacs/varColPrnt:{func:varPrntHlper,vcpList,width,colCount,lMargin,cMargin,rMargin,{lexec:_holodeck/scripts/functions/varColPrnt,here}}{varPrntHlper:{:1},{:2},{:3},{:4},{:5},{:6}}
+lsedit here=_holodeck/scripts/functions/varColPrnt
+.del 1 999
+{null:
+{set:rMargin,{default:{&rMargin},{rstr:{&lMargin}}}}
+{with:colWidth,{div:{subt:{&width},{strlen:{&lMargin}},{strlen:{&rMargin}},{mult:{subt:{&colCount},1},{strlen:{&cMargin}}}},{&colCount}},
+    {with:rowCount,{div:{subt:{count:{&vcpList}},1},{&colCount}},
+        {set:vcpList,{lPad:{&vcpList},{mult:{add:{&rowCount},1},{&colCount}}}}
+        {set:vcpList,{parse:currRoom,{&vcpList},{center:{&currRoom},{&colWidth}}}}
+        {for:i,0,{&rowCount},1,
+            {tell:
+                {&lMargin}
+                {center:
+                    {ljoin:
+                        {sublist:{&vcpList},
+                            {add:{mult:{&i},{&colCount}},1},
+                            {mult:{add:{&i},1},{&colCount}}
+                        },
+                        {&cMargin}
+                    },
+                    {subt:{&width},{strlen:{&lMargin}},{strlen:{&rMargin}}}
+                }
+                {&rMargin}
+            }
+        }
+    }
+}
+}
+.end
+
+@set here=_msgmacs/rstr:{midstr:{:1},-1,1}
+
