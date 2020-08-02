@@ -32,13 +32,24 @@ lsedit here=_holodeck/scripts/commands/list
             {getRoomList},
             {set:maxlength,{max:{&maxlength},{strlen:{&curr}}}}
         }
-        {foreach:
-            curr,
-            {getRoomList},
+        {foreach:currZone,{getZoneList},
+            {tell: {&currZone}/}
+            {foreach:currRoom,{getZoneRooms:{&currZone}},
+                {tell:
+                    {lit:  }
+                    {left:{&currRoom},{&maxlength}}
+                    {lit: - }
+                    {getName:{&currRoom}}{nl}
+                }
+            }
+        }
+        {tell: (Uncategorized)/}
+        {foreach:currRoom,{getZoneRooms},
             {tell:
-                {left:{&curr},{&maxlength}}
+                {lit:  }
+                {left:{&currRoom},{&maxlength}}
                 {lit: - }
-                {getName:{&curr}}{nl}
+                {getName:{&currRoom}}{nl}
             }
         }
     }

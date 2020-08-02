@@ -69,3 +69,9 @@ lsedit here=_holodeck/scripts/functions/copyDetails
     }
 }
 .end
+
+
+)) Zonelist
+@set here=_msgmacs/getZoneList:{lsort:{lremove:{lunique:{parse:curr,{listprops:_holodeck/rooms/,here},{prop:{&curr}/zone,here}}},\r}}
+)) 1 - The zone to get the rooms for. Leave blank to get rooms without a zone.
+@set here=_msgmacs/getZoneRooms:{parse:currParse,{filter:curr,{listprops:_holodeck/rooms/,here},{eq:{prop:{&curr}/zone,here},{:1}}},{subst:{&currPArse},_holodeck/rooms/,}}

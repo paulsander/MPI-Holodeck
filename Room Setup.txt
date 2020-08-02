@@ -10,6 +10,8 @@ You are in a large black room with an orange grid covering all of the walls and 
 @set here=_holodeck/default/messages/switch:You change the holodeck program to %programname (%programcode).
 @set here=_holodeck/default/messages/oswitch:{name:me} changes the holodeck program to %programname (%programcode).
 
+
+
 @set here=_holodeck/rooms/:
 @set here=_holodeck/rooms/tribal01/name:Tribal Ritual Bonfire
 lsedit here=_holodeck/rooms/tribal01/desc
@@ -18,6 +20,7 @@ There's a huge bonfire here.
 There's some other stuff roo.
 A pathway leads <north> away from the fire.
 .end
+@set here=_holodeck/rooms/tribal01/zone:Tribal Village
 @set here=_holodeck/rooms/tribal01/exits/north/dest:tribal02
 
 @set here=_holodeck/rooms/tribal02/name:Village Resting Place
@@ -30,6 +33,7 @@ You can try to <spin> around in a circle, but you'll probably just wind up here 
 If you want to purposefully trigger an <error>, you can also do that here.
 And now there is a [bed] here for you to look at. Fancy!
 .end
+@set here=_holodeck/rooms/tribal02/zone:Tribal Village
 @set here=_holodeck/rooms/tribal02/exits/south/dest:tribal01
 @set here=_holodeck/rooms/tribal02/exits/south/succ:You head down the path to the bonfire.
 @set here=_holodeck/rooms/tribal02/exits/south/osucc:{name:me} heads down the path to the bonfire.
@@ -45,6 +49,12 @@ And now there is a [bed] here for you to look at. Fancy!
 @set here=_holodeck/rooms/tribal02/exits/error2/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
 @set here=_holodeck/rooms/tribal02/details/bed:This is a nice, soft bed for when you're tired of doing ritual bonfire stuff.
 
+
+@set here=_holodeck/rooms/uname/name:Blargle
+@set here=_holodeck/rooms/vname/name:vlargle
+@set here=_holodeck/rooms/vname/zone:Test Zone
+
+@set here=_holodeck/rooms/Nurse's Office/name:Nurse's Office
 
 
 @set here=_holodeck/rooms/bob/name:Bob
