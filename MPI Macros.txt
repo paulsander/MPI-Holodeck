@@ -38,7 +38,7 @@ lsedit here=_holodeck/scripts/functions/doExitMsg
 @set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{prop:_holodeck/rooms/{:1}/name}}
 @set here=_msgmacs/getExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{subst:{&curr},_holodeck/rooms/{:1}/exits/,}}
 @set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}
-@set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits: {&fExits} ]}}
+@set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits ('go <exit>'): {&fExits} ]}}
 
 
 @set here=_msgmacs/str/TakeFirst:{midstr:{strip:{:1}},1,{subt:{instr:{strip:{:1}},{if:{:2},{:2}, }},1}}

@@ -4,7 +4,6 @@ IN PROGRESS:
 
 
 LATER:
-Add 'go' to the listing of obvious exits
 Add a discontinue/resume command to resume the last loaded program
 Have holodeck deactivate once all players leave.
 Better list/categories/zones sorting/filtering.
