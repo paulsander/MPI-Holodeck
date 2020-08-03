@@ -8,10 +8,17 @@
 @link status=$nothing
 @lock status=me&!me
 @fail status={debugif:{prop:debug},{dispatch:{&cmd}}}
+@set status=_icons/admin:You see a dark red gear, surrounded by a square with rounded corners. {if:{not:{isadmin?:me}},It is currently dimmed\, indicating you do not have access.}
+@set status=_icons/status:You see a dark blue circle with a white i in the middle, surrounded by a square with rounded corners.
+@set status=_icons/list:You see a set of 3 short horizontal yellow lines, surrounded by a square with rounded corners.
+@set status=_icons/switch:You see two green arrows circling each other in a circle, surrounded by a square with rounded corners.
+@set status=_icons/go:You see an orange road icon, surrounded by a square with rounded corners.
+@desc status={eval:{prop:_icons/{&arg},this}}
 
 @action leave=here
 @link leave=home
 @set leave=D
+@desc leave=You see a sky blue house icon surrounded by a square with rounded corners.
 @succ leave=You touch a button on the holodeck controls and are whisked away.
 @osucc leave=touches a button on the holodeck controls and is whisked away.
 
