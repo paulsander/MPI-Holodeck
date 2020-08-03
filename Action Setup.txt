@@ -1,3 +1,5 @@
+@set here=_holodeck/version:0.1.0
+
 lsedit here=_holodeck/scripts/commands/admin
 .del 1 999
 {null:
