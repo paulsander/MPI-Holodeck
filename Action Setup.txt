@@ -1,7 +1,11 @@
 lsedit here=_holodeck/scripts/commands/admin
 .del 1 999
 {null:
-	{tell:Cmd 'admin' - Arg [{&arg}]! First is [{str/takefirst:{&arg}}]}
+	{if:{not:{isAdmin?:me}},
+        {tell:{lit:The computer lets out a buzzing sound, and a robotic voice says,}
+            {lit: "I'm sorry, you do not have access to the admin functionalities here."}},
+        {tell:Cmd 'admin' - Arg [{&arg}]! First is [{str/takefirst:{&arg}}]}
+    }
 }
 .end
 
