@@ -27,16 +27,24 @@
 @desc holodeck panel={eval:{list:redesc}}
 lsedit holodeck panel=redesc
 .del 1 999
-{center:[Holodeck Program (v{getVersion})],78,~}
 A small metal panel is embedded in the wall, with a small readout and several brightly colored buttons beneath it. It hides itself away when a program is running, but can be called forth at any time with a vocal command.
-Available Commands:
-status:           Check the current running program and available exits.
-list:             List all available holodeck programs.
-switch <program>: Switch to the specified program.
-switch off:       Turn the holodeck off.
-go <exit name>:   'Move' to the specified exit (this is an 'IC' alias for
-                  switch, but will only allow you to move to exits presented
-                  in the current room.)
-leave:            Leaves the holodeck.
+ 
+//{center:[  Holodeck Main Menu  ],78,-}\\
+|                                                                              |
+|                              Available Commands                              |
+|                                                                              |
+| admin             {if:{isadmin?:me},{left:Access administrator functionality.,58},{center:-- ACCESS DENIED --,58}} |
+| status            Check the current running program and available exits.     |
+| list              List all available holodeck programs.                      |
+| switch <program>  Switch to the specified program.                           |
+| switch off        Turn the holodeck off.                                     |
+| go <exit name>    'Move' to the specified exit (this is an 'IC' alias for    |
+|                   switch, but will only allow you to move to exits presented |
+|                   in the current room.)                                      |
+| leave             Leaves the holodeck.                                       |
+|                                                                              |
+| {left:Current Pogram Version: v{getVersion},76} |
+|                                                                              |
+\\------------------------------------------------------------------------------/
 .end
 drop holodeck panel
