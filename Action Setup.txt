@@ -31,7 +31,7 @@ lsedit here=_holodeck/scripts/commands/status
 lsedit here=_holodeck/scripts/commands/list
 .del 1 999
 {null:
-    {tell:{nl}/{center:[  Holodeck Program Listing  ],78,-}\\{nl}}
+    {tell:{nl}{drawtopBorder:Holodeck Program Listing}{nl}}
     {tell:|{center:,78}|}
     {with:maxLength,0,
     {with:columnNum,0,
@@ -69,7 +69,7 @@ lsedit here=_holodeck/scripts/commands/list
             {varColPrnt:{getZoneRooms},80,{&columnNum},| ,  , |}
         }
         {tell:|{center:,78}|}
-        {tell:\\{center:[  switch <program name>  ],78,-}/}
+        {tell:{drawBotBorder:switch <program name>}}
     }
     }
     }

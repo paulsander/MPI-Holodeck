@@ -140,3 +140,6 @@ lsedit here=_holodeck/scripts/functions/varColPrnt
 @set here=_msgmacs/rstr:{midstr:{:1},-1,1}
 
 @set here=_msgmacs/isAdmin?:{or:{dbeq:{owner:here},me},{if:{lmember:{listprops:_holodeck,here},_holodeck/adminlock},{testlock:here,_holodeck/adminlock,me}}}
+
+@set here=_msgmacs/drawTopBorder:/{center:{if:{:1},[  {:1}  ]},78,-}\\
+@set here=_msgmacs/drawBotBorder:\\{center:{if:{:1},[  {:1}  ]},78,-}/
