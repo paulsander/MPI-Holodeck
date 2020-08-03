@@ -43,8 +43,6 @@ A small metal panel is embedded in the wall, with a small readout and several br
 |                   in the current room.)                                      |
 | leave             Leaves the holodeck.                                       |
 |                                                                              |
-| {left:Current Pogram Version: v{getVersion},76} |
-|                                                                              |
-\\------------------------------------------------------------------------------/
+\\{center:[  v{getVersion}  ],78,-}/
 .end
 drop holodeck panel
