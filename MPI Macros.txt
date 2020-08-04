@@ -137,6 +137,42 @@ lsedit here=_holodeck/scripts/functions/varColPrnt
 }
 .end
 
+)) 1  - The list to print
+)) 2  - Total width to print to
+)) 3  - Number of columns to print
+)) 4  - left margin
+)) 5  - column padding
+)) 6? - right margin (defaults to mirror of left column)
+@set here=_msgmacs/varColPrntL:{func:varPrntLHlper,vcpList,width,colCount,lMargin,cMargin,rMargin,{lexec:_holodeck/scripts/functions/varColPrntL,here}}{varPrntLHlper:{:1},{:2},{:3},{:4},{:5},{:6}}
+lsedit here=_holodeck/scripts/functions/varColPrntL
+.del 1 999
+{null:
+{set:rMargin,{default:{&rMargin},{rstr:{&lMargin}}}}
+{with:colWidth,{div:{subt:{&width},{strlen:{&lMargin}},{strlen:{&rMargin}},{mult:{subt:{&colCount},1},{strlen:{&cMargin}}}},{&colCount}},
+    {with:rowCount,{div:{subt:{count:{&vcpList}},1},{&colCount}},
+        {set:vcpList,{lPad:{&vcpList},{mult:{add:{&rowCount},1},{&colCount}}}}
+        {set:vcpList,{parse:currRoom,{&vcpList},{left:{&currRoom},{&colWidth}}}}
+        {for:i,0,{&rowCount},1,
+            {tell:
+                {&lMargin}
+                {center:
+                    {ljoin:
+                        {sublist:{&vcpList},
+                            {add:{mult:{&i},{&colCount}},1},
+                            {mult:{add:{&i},1},{&colCount}}
+                        },
+                        {&cMargin}
+                    },
+                    {subt:{&width},{strlen:{&lMargin}},{strlen:{&rMargin}}}
+                }
+                {&rMargin}
+            }
+        }
+    }
+}
+}
+.end
+
 @set here=_msgmacs/rstr:{midstr:{:1},-1,1}
 
 @set here=_msgmacs/isAdmin?:{or:{dbeq:{owner:here},me},{if:{lmember:{listprops:_holodeck,here},_holodeck/adminlock},{testlock:here,_holodeck/adminlock,me}}}
