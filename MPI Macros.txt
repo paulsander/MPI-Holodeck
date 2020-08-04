@@ -179,3 +179,5 @@ lsedit here=_holodeck/scripts/functions/varColPrntL
 
 @set here=_msgmacs/drawTopBorder:/{center:{if:{:1},[  {:1}  ]},78,-}\\
 @set here=_msgmacs/drawBotBorder:\\{center:{if:{:1},[  {:1}  ]},78,-}/
+
+@set here=_msgmacs/rinstr:{with:rinstrResult,{instr:{rstr:{:1}},{rstr:{:2}}},{if:{&rinstrResult},{add:{subt:{strlen:{:1}},{&rinstrResult},{strlen:{:2}}},2},0}}
