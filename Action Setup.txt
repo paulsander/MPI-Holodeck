@@ -14,17 +14,59 @@ lsedit here=_holodeck/scripts/commands/admin
 lsedit here=_holodeck/scripts/commands/status
 .del 1 999
 {null:
-    {tell:
-        [Holodeck Status]{nl}
-        {lit: }{nl}
-        {if:{isOff?},
+    {tell:{drawtopBorder:Holodeck Status}{nl}}
+    {lit: }{nl}
+    {if:{isOff?},
+        {foreach:curr,
+            {lit: }{nl}            
             The holodeck is currently off!{nl}
-            Use 'list' to find a program to run\, and 'switch <program>' to run it!,
-            You are currently running: {getName:{currentProgram}} ({currentProgram}){nl}
-            The available exits are: {fmtExits}{nl}
-            You can use 'go <exit name>' to move to that room.
+            {lit: }{nl}
+            Use 'list' to find a program to run\, and 'switch <program>' to{nl}
+            run it!{nl}
+            {lit: },
+            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
+        },
+
+        {foreach:curr,
+            {lit: }{nl}
+            You are currently running:{nl}
+            {lit: },
+            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
         }
-	}
+
+        {varColPrnt:{wordwrap:{currentProgram},60},80,1,|      [  ,  ,  ]      |}
+
+        {foreach:curr,
+            {lit: }{nl}
+            The available exits are:{nl}
+            {lit: },
+            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
+        }
+
+        {with:exits,{parse:cExit,{getExits:{CurrentProgram}},<{&cExit}>},
+            Now we need the longest of these
+            {with:maxLength,{fold:l,r,\r{&exits},{max:{&l},{strlen:{&r}}}},
+            {with:columnNum,{div:60,{&maxLength}},
+                {null:This is checking if I have enough space for the padding between names.}
+                {null: {80 - 20 - (columnNum * maxLength)} < (columnNum - 1) * 2 }
+                {if:
+                    {lt:{subt:60,{mult:{&columnNum},{&maxLength}}},{mult:{subt:{&columnNum},1},2}},
+                    {dec:columnNum}
+                }
+                {set:columnNum,{min:{count:{&exits}},{&columnNum}}}
+                {varColPrnt:{&exits},80,{&columnNum},|      [  ,  ,  ]      |}
+            }
+            }
+        }
+
+        {foreach:curr,
+            {lit: }{nl}
+            You can use 'go <exit name>' to move to that room.{nl}
+            {lit: },
+            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
+        }
+    }
+    {tell:{drawBotBorder}{nl}}
 }
 .end
 
