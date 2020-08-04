@@ -46,6 +46,10 @@ And now there is a [bed] here for you to look at. Fancy!
 @set here=_holodeck/rooms/Village Hut/exits/error/osucc:{name:me} spins around crazily and then falls over where %s started.
 @set here=_holodeck/rooms/Village Hut/exits/error/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
 @set here=_holodeck/rooms/Village Hut/exits/error2/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
+@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 1/detail:This is a dummy exit!
+@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 2/detail:This is a dummy exit!
+@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 3/detail:This is a dummy exit!
+@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 4/detail:This is a dummy exit!
 @set here=_holodeck/rooms/Village Hut/details/bed:This is a nice, soft bed for when you're tired of doing ritual bonfire stuff.
 
 
