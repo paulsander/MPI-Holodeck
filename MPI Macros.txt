@@ -84,6 +84,11 @@ GUI MACROS
 
 @set here=_msgmacs/gui/Header:/{center:{if:{:1},[  {:1}  ]},78,-}\\
 @set here=_msgmacs/gui/Footer:\\{center:{if:{:1},[  {:1}  ]},78,-}/
+@set here=_msgmacs/gui/LRBorder:{with:lrbw,{subt:{default:{:4},80},{strlen:{:2}},{strlen:{:3}}},{null:{foreach:lrbCurr,{:1},{tell:{:2}{left:{&lrbCurr},{&lrbw}}{:3}}}}}
+        {with:lrbw,{subt:{default:{:4},80},{strlen:{:2}},{strlen:{:3}}},{foreach:curr,
+            {:1},
+            {tell:{:2}{left:{&curr},{&lrbw}}{:3}}}
+        }}
 
 STRING MACROS
 

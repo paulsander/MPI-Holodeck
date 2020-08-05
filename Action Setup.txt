@@ -17,34 +17,33 @@ lsedit here=_holodeck/scripts/commands/status
     {tell:{gui/Header:Holodeck Status}{nl}}
     {lit: }{nl}
     {if:{isOff?},
-        {foreach:curr,
+        {gui/lrborder:
             {lit: }{nl}            
             The holodeck is currently off!{nl}
             {lit: }{nl}
             Use 'list' to find a program to run\, and 'switch <program>' to{nl}
             run it!{nl}
             {lit: },
-            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
-        },
-
-        {foreach:curr,
+            {lit:|      },{lit:      |}
+        }
+    ,
+        {gui/lrborder:
             {lit: }{nl}
             You are currently running:{nl}
             {lit: },
-            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
+            {lit:|      },{lit:      |}
         }
 
         {varColPrnt:{wordwrap:{currentProgram},60},80,1,|      [  ,  ,  ]      |}
 
-        {foreach:curr,
+        {gui/lrborder:
             {lit: }{nl}
             The available exits are:{nl}
             {lit: },
-            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
+            {lit:|      },{lit:      |}
         }
 
         {with:exits,{parse:cExit,{getExits:{CurrentProgram}},<{&cExit}>},
-            Now we need the longest of these
             {with:maxLength,{fold:l,r,\r{&exits},{max:{&l},{strlen:{&r}}}},
             {with:columnNum,{div:60,{&maxLength}},
                 {null:This is checking if I have enough space for the padding between names.}
@@ -59,11 +58,11 @@ lsedit here=_holodeck/scripts/commands/status
             }
         }
 
-        {foreach:curr,
+        {gui/lrborder:
             {lit: }{nl}
             You can use 'go <exit name>' to move to that room.{nl}
             {lit: },
-            {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
+            {lit:|      },{lit:      |}
         }
     }
     {tell:{gui/Footer}{nl}}
