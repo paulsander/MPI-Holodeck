@@ -6,8 +6,3 @@ IN PROGRESS:
 LATER:
 Add a discontinue/resume command to resume the last loaded program
 Have holodeck deactivate once all players leave.
-
-multiple aliases for exits
-    Get list of propdirs, do maybe a while loop on the list being empty, I can probably use the list funcs to check if my item is in it, if it is, store it, clear the list to break out of the while, and then take the appropraite action (either exit stored, or nothing stored)
-    I also need to make sure to pop off just the first exit to display for lists.
-    Not sure if I want to do this one though.

@@ -175,11 +175,21 @@ lsedit here=_holodeck/scripts/commands/go
         {tell:> Where do you want to go? (type 'go <exit>' to change locations.)},
         {if:
             {isOff?},
-            {tell:> The holodeck is off! You can switch it on with 'switch <program>'.},
+            {tell:> The holodeck is off! You can switch it on with 'switch <program>'.}, 
+            {with:dest,/,
             {if:
-                {not:{lmember:{getExits:{currentProgram}},{&arg}}},
+                {null:
+                    {foreach:fExit,{getFullExits:{currentProgram}},
+                        {if:{and:{eq:{&dest},/},{lmember:{&fexit},{&arg},;}},
+                            {set:dest,{prop:_holodeck/rooms/{currentProgram}/exits/{&fExit}/dest,here}}
+                            {set:arg,{&fExit}}
+                        }
+                    }
+                }
+                {eq:{&dest},/}
+                ,
                 {tell:> That isn't a valid exit!},
-                {with:dest,{prop:_holodeck/rooms/{currentProgram}/exits/{&arg}/dest,here},
+                
                     {if:
                         {or:
                             {eq:{&dest},},
@@ -193,7 +203,7 @@ lsedit here=_holodeck/scripts/commands/go
                         {store:{&dest},_holodeck/current,here}
                         {tell:{holodesc}}
                     }
-                }
+            }
             }
         }
     }

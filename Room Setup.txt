@@ -33,23 +33,19 @@ If you want to purposefully trigger an <error>, you can also do that here.
 And now there is a [bed] here for you to look at. Fancy!
 .end
 @set here=_holodeck/rooms/Village Hut/zone:Tribal Village
-@set here=_holodeck/rooms/Village Hut/exits/south/dest:Ritual Bonfire
-@set here=_holodeck/rooms/Village Hut/exits/south/succ:You head down the path to the bonfire.
-@set here=_holodeck/rooms/Village Hut/exits/south/osucc:{name:me} heads down the path to the bonfire.
-@set here=_holodeck/rooms/Village Hut/exits/south/detail:A beaten dirt path that leads to a bonfire flickering in the distance.
-@set here=_holodeck/rooms/Village Hut/exits/spin/dest:Village Resting Place
-@set here=_holodeck/rooms/Village Hut/exits/spin/succ:You spin around crazily and then fall over where you started.
-@set here=_holodeck/rooms/Village Hut/exits/spin/osucc:{name:me} spins around crazily and then falls over where %s started.
-@set here=_holodeck/rooms/Village Hut/exits/spin/detail:A huge open field that you can spin in to your heart's content.
+@set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/dest:Ritual Bonfire
+@set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/succ:You head down the path to the bonfire.
+@set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/osucc:{name:me} heads down the path to the bonfire.
+@set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/detail:A beaten dirt path that leads to a bonfire flickering in the distance.
+@set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/dest:Village Hut
+@set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/succ:You spin around crazily and then fall over where you started.
+@set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/osucc:{name:me} spins around crazily and then falls over where %s started.
+@set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/detail:A huge open field that you can spin in to your heart's content.
 @set here=_holodeck/rooms/Village Hut/exits/error/dest:errorDest
 @set here=_holodeck/rooms/Village Hut/exits/error/succ:You spin around crazily and then fall over where you started.
 @set here=_holodeck/rooms/Village Hut/exits/error/osucc:{name:me} spins around crazily and then falls over where %s started.
 @set here=_holodeck/rooms/Village Hut/exits/error/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
 @set here=_holodeck/rooms/Village Hut/exits/error2/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
-@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 1/detail:This is a dummy exit!
-@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 2/detail:This is a dummy exit!
-@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 3/detail:This is a dummy exit!
-@set here=_holodeck/rooms/Village Hut/exits/Dummy Exit 4/detail:This is a dummy exit!
 @set here=_holodeck/rooms/Village Hut/details/bed:This is a nice, soft bed for when you're tired of doing ritual bonfire stuff.
 
 
