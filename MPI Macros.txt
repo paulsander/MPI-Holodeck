@@ -82,8 +82,8 @@ lsedit here=_holodeck/scripts/functions/copyDetails
 
 GUI MACROS
 
-@set here=_msgmacs/gui/Header:/{center:{if:{:1},[  {:1}  ]},78,-}\\
-@set here=_msgmacs/gui/Footer:\\{center:{if:{:1},[  {:1}  ]},78,-}/
+@set here=_msgmacs/gui/Header:{null:{tell:/{center:{if:{:1},[  {:1}  ]},{subt:{default:{:2},80},2},-}\\}}
+@set here=_msgmacs/gui/Footer:{null:{tell:\\{center:{if:{:1},[  {:1}  ]},{subt:{default:{:2},80},2},-}/}}
 @set here=_msgmacs/gui/LRBorder:{with:lrbw,{subt:{default:{:4},80},{strlen:{:2}},{strlen:{:3}}},{null:{foreach:lrbCurr,{:1},{tell:{:2}{left:{&lrbCurr},{&lrbw}}{:3}}}}}
         {with:lrbw,{subt:{default:{:4},80},{strlen:{:2}},{strlen:{:3}}},{foreach:curr,
             {:1},
