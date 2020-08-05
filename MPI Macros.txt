@@ -78,6 +78,77 @@ HOLODECK - EXITS
 @set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}
 @set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits ('go <exit>'): {&fExits} ]}}
 
+)) {findExit: room, exit } - Searched the given room to find the full name for the specified exit
+))                           Returns null if no exit is found.
+)) 1 - room         - the room to search
+)) 2 - exit         - the exit name you're searching for
+@set here=_msgmacs/findExit:{fold:l,r,\r{getFullExits:{:1}},{if:{and:{not:{&l}},{lmember:{&r},{:2},;}},{&r},{&l}}}
+
+=====
+{fold:l,r,\r{getFullExits:{:1}},
+    {if:
+        {and:{not:{&l}},{lmember:{&r},{:2},;}},
+        {&r},
+        {&l}
+    }
+}
+
+=====
+
+)) {findExitProp: room, exit, propname, default? } - Searched the given room to find the specifid exit,
+))                                                   and then return the specified prop. Returns "" or
+))                                                   the specified default if nothing is found.
+)) Returns null if no exit is found.
+)) 1 - room         - the room to search
+)) 2 - exit         - the exit name you're searching for
+)) 3 - propname     - The prop name you're attempting to retrieve
+)) 4 - default?     - (Optional) The value to return if nothing is found.
+@set here=_msgmacs/findExitProp:{fold:l,r,{:4}\r{getFullExits:{:1}},{if:{and:{eq:{&l},{:4}},{lmember:{&r},{:2},;}},{prop:_holodeck/rooms/{:1}/exits/{&r}/{:3},here},{&l}}}
+
+// So this is the setup; our seed values are our default and the first list item
+// So if the left item is the default, and the right value contains our search return, we want to return the right specified
+// Otherwise we want to just return the left hand specified
+{fold:l,r,{:4}\r{getFullExits:{:1}},
+    {if:
+        {and:{eq:{&l},{:4}},{lmember:{&r},{:2},;}},
+        {prop:_holodeck/rooms/{:1}/exits/{&r}/{:3},here},
+        {&l}
+    }
+}
+
+)) {findExitProp2: room, exit, propname, variable, default? } - Searched the given room to find the specifid exit,
+))                                                              and then return the specified prop. Returns "" or
+))                                                              the specified default if nothing is found.
+)) Returns null if no exit is found.
+)) 1 - room         - the room to search
+)) 2 - exit         - the exit name you're searching for
+)) 3 - propname     - The prop name you're attempting to retrieve
+)) 4 - variable     - The name of a variable you want to save the full exit name to
+)) 5 - default?     - (Optional) The value to return if nothing is found.
+@set here=_msgmacs/findExitProp2:{fold:l,r,{:5}\r{getFullExits:{:1}},{if:{and:{eq:{&l},{:5}},{lmember:{&r},{:2},;}},{prop:_holodeck/rooms/{:1}/exits/{&r}/{:3},here}{null:{set:{:4},{&r}}},{&l}}}
+
+
+// So this is the setup; our seed values are our default and the first list item
+// So if the left item is the default, and the right value contains our search return, we want to return the right specified
+// Otherwise we want to just return the left hand specified
+{fold:l,r,{:5}\r{getFullExits:{:1}},
+    {if:
+        {and:{eq:{&l},{:5}},{lmember:{&r},{:2},;}},
+        {prop:_holodeck/rooms/{:1}/exits/{&r}/{:3},here}
+        {null:{set:{:4},{&r}}},
+        {&l}
+    }
+}
+
+
+)) {getExitProp: room, exit, propname, default?} - Retrieves the specified exit for the given room, exit, and prop name.
+)) 1 - room     - The room containing the exit to retrieve the prop from
+)) 2 - exit     - The exit name to get the value from - must be the full name.
+)) 3 - propname - The prop name to retrieve a value for
+)) 4 - default? - (Optional) A default value to return if the specified value isn't found
+@set here=_msgmacs/getExitProp:{default:{prop:_holodeck/rooms/{:1}/exits/{:2}/{:3}, here},{:4}}
+
+
 HOLODECK - DETAIL FUNCTIONS
 
 @set here=_msgmacs/clearDetails:{delprop:_details,{getdbref}}
