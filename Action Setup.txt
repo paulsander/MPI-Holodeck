@@ -4,9 +4,22 @@ lsedit here=_holodeck/scripts/commands/admin
 .del 1 999
 {null:
 	{if:{not:{isAdmin?:me}},
-        {tell:{lit:The computer lets out a buzzing sound, and a robotic voice says,}
-            {lit: "I'm sorry, you do not have access to the admin functionalities here."}},
-        {tell:Cmd 'admin' - Arg [{&arg}]! First is [{str/takefirst:{&arg}}]}
+        {tell:
+            {lit:The computer lets out a buzzing sound, and a soothing voice says,}
+            {lit: "We're sorry, you do not have access to the admin functionalities here."}
+        }
+    ,
+            {tell:Cmd 'admin' - Arg [{&arg}]! First is [{str/takefirst:{&arg}}]}
+            {gui/header:Holodeck Administrative Menu}
+            {gui/lrborder:
+                {lit: }{nl}
+                No administrative functionalities installed yet.{nl}
+                {lit: }
+                {lit: }
+                ,
+                {lit:|      },{lit:      |}
+            }
+            {gui/footer}
     }
 }
 .end
