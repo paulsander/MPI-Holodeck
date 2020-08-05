@@ -125,28 +125,65 @@ lsedit here=_holodeck/scripts/commands/switch
     {set:arg,{strip:{&arg}}}
 	{if:
         {eq:{&arg},},
-        {tell:
-            > Syntax for switch is:{nl}
-            > switch off:       Turn the holodeck off.{nl}
-            > switch <program>: Switch to the specified program.{nl}
-        },
+            {gui/header:Holodeck Help}
+            {gui/lrborder:
+                {lit: }{nl}
+                Syntax for switch is:{nl}
+                {lit: }{nl}
+                switch off:       Turn the holodeck off.{nl}
+                switch <program>: Switch to the specified program.{nl}
+                {lit: }{nl}
+                You can view a list of programs with 'list'.{nl}
+                {lit: }
+                ,
+                {lit:|      },{lit:      |}
+            }
+            {gui/footer}
+        ,
         {if:
             {eq:{&arg},off},
             {if:
                 {eq:{currentProgram},off},
-                {tell:
-                    > The holodeck is already off!
-                },
+                    {gui/header:Holodeck Help}
+                    {gui/lrborder:
+                        {lit: }{nl}
+                        The holodeck is already off!{nl}
+                        {lit: }
+                        ,
+                        {lit:|      },{lit:      |}
+                    }
+                    {gui/footer}
+                ,
                 {clearDetails}
                 {store:off,_holodeck/current,here}
                 {mbroadcast:deactivate,Off,Off}
             },
             {if:
                 {not:{propdir:_holodeck/rooms/{&arg},here}},
-                {tell:> That program doesn't exist! Type 'list' to see all the programs.},
+                {gui/header:Holodeck Help}
+                {gui/lrborder:
+                    {lit: }{nl}
+                    That program doesn't exist!{nl}
+                    {lit: }{nl}
+                    Type 'list' to see the available programs.{nl}
+                    {lit: }
+                    ,
+                    {lit:|      },{lit:      |}
+                }
+                {gui/footer}
+                ,
                 {if:
                     {eq:{currentProgram},{&arg}},
-                    {tell:> Error! Holodeck is already set to that program.},
+                    {gui/header:Holodeck Help}
+                    {gui/lrborder:
+                        {lit: }{nl}
+                        The holodeck is already set to that program!{nl}
+                        {lit: }
+                        ,
+                        {lit:|      },{lit:      |}
+                    }
+                    {gui/footer}
+                    ,
                     {set:arg,{cleanName:{&arg}}}
                     {if:
                         {isOff?},
