@@ -9,8 +9,8 @@ You are in a large black room with an orange grid covering all of the walls and 
 @set here=_holodeck/default/messages/odeactivate:{name:me} shuts down the holodeck, and a faint humming sound winds down as it returns to its original state.
 @set here=_holodeck/default/messages/switch:You change the holodeck program to '%programcode'.
 @set here=_holodeck/default/messages/oswitch:{name:me} changes the holodeck program to '%programcode'.
-
-
+@set here=_disconnect/autoshutdown:&{autoshutdown}
+@set here=_depart/autoshutdown:&{debug:{autoshutdown}}
 
 @set here=_holodeck/rooms/:
 lsedit here=_holodeck/rooms/Ritual Bonfire/desc

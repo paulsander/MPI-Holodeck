@@ -5,4 +5,3 @@ IN PROGRESS:
 
 LATER:
 Add a discontinue/resume command to resume the last loaded program
-Have holodeck deactivate once all players leave.

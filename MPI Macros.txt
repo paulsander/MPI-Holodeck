@@ -44,7 +44,7 @@ lsedit here=_holodeck/scripts/functions/doExitMsg
 @set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits ('go <exit>'): {&fExits} ]}}
 
 
-@set here=_msgmacs/clearDetails:{delprop:_details,here}
+@set here=_msgmacs/clearDetails:{delprop:_details,{getdbref}}
 
 @set here=_msgmacs/copyDetails:{func:cpyDetHlpr,pcode,{lexec:_holodeck/scripts/functions/copyDetails,here}}{cpyDetHlpr:{:1}}
 lsedit here=_holodeck/scripts/functions/copyDetails
@@ -79,6 +79,10 @@ lsedit here=_holodeck/scripts/functions/copyDetails
 
 @set here=_msgmacs/isAdmin?:{or:{dbeq:{owner:here},me},{if:{lmember:{listprops:_holodeck,here},_holodeck/adminlock},{testlock:here,_holodeck/adminlock,me}}}
 
+@set here=_msgmacs/getDbref:{prop:_holodeck/dbref}
+@set here=_msgmacs/anyAwake?:{fold:l,r,0\r{contents:{getdbref},player},{add:{&l},{awake:{&r}}}}
+
+@set here=_msgmacs/autoshutdown:{null:{if:{not:{anyAwake?}},{clearDetails}{store:off,_holodeck/current,{getdbref}}}}
 
 GUI MACROS
 

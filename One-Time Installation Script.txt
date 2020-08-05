@@ -1,5 +1,6 @@
 @dig Holodeck==temp/Holodeck
 @tel me=$tmp/Holodeck
+@register #prop here:_holodeck here=dbref
 
 @desc here={holodesc}
 @set here=_holodeck/version:0.1.0
