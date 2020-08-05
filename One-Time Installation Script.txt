@@ -29,7 +29,7 @@ lsedit holodeck panel=redesc
 .del 1 999
 A small metal panel is embedded in the wall, with a small readout and several brightly colored buttons beneath it. It hides itself away when a program is running, but can be called forth at any time with a vocal command.
  
-{drawtopborder:Holodeck Main Menu}
+{gui/Header:Holodeck Main Menu}
 |                                                                              |
 |                              Available Commands                              |
 |                                                                              |
@@ -43,6 +43,6 @@ A small metal panel is embedded in the wall, with a small readout and several br
 |                   in the current room.)                                      |
 | leave             Leaves the holodeck.                                       |
 |                                                                              |
-{drawBotBorder:v{getVersion}}
+{gui/Footer:v{getVersion}}
 .end
 drop holodeck panel

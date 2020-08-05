@@ -14,7 +14,7 @@ lsedit here=_holodeck/scripts/commands/admin
 lsedit here=_holodeck/scripts/commands/status
 .del 1 999
 {null:
-    {tell:{drawtopBorder:Holodeck Status}{nl}}
+    {tell:{gui/Header:Holodeck Status}{nl}}
     {lit: }{nl}
     {if:{isOff?},
         {foreach:curr,
@@ -66,14 +66,14 @@ lsedit here=_holodeck/scripts/commands/status
             {tell:{lit:|      }{left:{&curr},66}{lit:      |}}
         }
     }
-    {tell:{drawBotBorder}{nl}}
+    {tell:{gui/Footer}{nl}}
 }
 .end
 
 lsedit here=_holodeck/scripts/commands/list
 .del 1 999
 {null:
-    {tell:{nl}{drawtopBorder:Holodeck Program Listing}{nl}}
+    {tell:{nl}{gui/Header:Holodeck Program Listing}{nl}}
     {tell:|{center:,78}|}
     {with:maxLength,0,
     {with:columnNum,0,
@@ -111,7 +111,7 @@ lsedit here=_holodeck/scripts/commands/list
             {varColPrnt:{getZoneRooms},80,{&columnNum},| ,  , |}
         }
         {tell:|{center:,78}|}
-        {tell:{drawBotBorder:switch <program name>}}
+        {tell:{gui/Footer:switch <program name>}}
     }
     }
     }
