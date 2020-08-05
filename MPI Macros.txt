@@ -3,7 +3,7 @@
 HOLODECK - GENERAL
 
 )) {currentProgram} - returns the corrent program running, or 'Off' if the holodeck is off.
-@set here=_msgmacs/currentProgram:{with:val,{prop:_holodeck/current,here},{if:{eq:{&val},},Off,{&val}}}
+@set here=_msgmacs/currentProgram:{default:{prop:_holodeck/current,here},Off}
 
 )) {dispatch} - Used for a primary program action (admin;status;list;switch;go) to call the
 )) appropriate command based on the action typed.
