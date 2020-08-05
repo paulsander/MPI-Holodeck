@@ -1,10 +1,52 @@
 @set here=_msgmacs/:
 
-@set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}{nl}}{obvExits}}
-@set here=_msgmacs/getVersion:{prop:_holodeck/version,here}
+HOLODECK - GENERAL
+
+)) {currentProgram} - returns the corrent program running, or 'Off' if the holodeck is off.
+@set here=_msgmacs/currentProgram:{with:val,{prop:_holodeck/current,here},{if:{eq:{&val},},Off,{&val}}}
+
+)) {dispatch} - Used for a primary program action (admin;status;list;switch;go) to call the
+)) appropriate command based on the action typed.
 @set here=_msgmacs/dispatch:{lexec:_holodeck/scripts/commands/{&cmd}}
 
-)) 1 - propdir, 2 - message type, 3 - programcode, 4 - programname, 5 - suffix message
+)) {version} - Gets the current version number
+@set here=_msgmacs/getVersion:{prop:_holodeck/version,here}
+
+)) {isOff?} - Returns 1 if the holodeck is off, otherwise returns 0.
+@set here=_msgmacs/isOff?:{eq:off,{currentProgram}}
+
+HOLODECK - DESCRIPTIONS
+
+)) {holodeck} - This is the default description for the holodeck room. Dispatches into the correct
+)) prop to get the appropriate description. If the program is set to 'off' it fetches the holodeck's default.
+@set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}{nl}}{obvExits}}
+
+HOLODECK - ZONE AND ROOM INFORMATION
+
+@set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{with:val,{prop:_holodeck/rooms/{:1}/name},{if:{eq:{&val},},{:1},{&val}}}}
+@set here=_msgmacs/cleanName:{lcommon:{:1},{getRoomList}}
+
+@set here=_msgmacs/getRoomList:{parse:curr,{listprops:_holodeck/rooms/,here},{subst:{&curr},_holodeck/rooms/,}}
+
+)) {zonelist} - Scans the room list to fetch all zone properties, then sorts and removes duplicates, and returns the list.
+@set here=_msgmacs/getZoneList:{lsort:{lremove:{lunique:{parse:curr,{listprops:_holodeck/rooms/,here},{prop:{&curr}/zone,here}}},\r}}
+
+)) {getZoneRooms: zone? } - Gets a list of all rooms in the given zone.
+)) 1 - zone? - (optional) The zone to get the room list for. Leave blank to get rooms without a zone (i.e., 'uncategorized' rooms.)
+@set here=_msgmacs/getZoneRooms:{parse:currParse,{filter:curr,{listprops:_holodeck/rooms/,here},{eq:{prop:{&curr}/zone,here},{:1}}},{subst:{&currPArse},_holodeck/rooms/,}}
+
+HOLODECK - MESSAGE BROADCASTING
+
+)) {broadcast: propdir, message type, programcode, programname, suffix? )
+)) Fetches a message from a prop to broadcast to the room's occupants.
+)) 1 - propdir          - The property to fetch the message from
+)) 2 - message type     - The type of message to fetch (activate, deactivate, switch, succ, etc)
+)) 3 - programcode      - The name of the program (i.e., the one used for 'switch'.); used for substitutions
+))                        in messages.
+)) 4 - programname      - The long/pretty name of the program (i.e., the one used for room titles, if set);
+))                        used for substitutions in messages.
+)) 5 - suffix?          - (Optional) A string appeneded to the end of a given message; used only for 'o'
+))                        messages to advise players some system action has taken place.
 @set here=_msgmacs/broadcast:{null:{tell:{eval:{doSubsts:{prop:{:1}{:2}},{:3},{:4}}}{:5}}{otell:{eval:{doSubsts:{prop:{:1}o{:2}},{:3},{:4}}}{:5}}}
 )) 
 @set here=_msgmacs/mbroadcast:{broadcast:_holodeck/default/messages/,{:1},{:2},{:3}}
@@ -29,20 +71,14 @@ lsedit here=_holodeck/scripts/functions/doExitMsg
 // 1 - input string, 2 - program code, 3 - programname
 @set here=_msgmacs/doSubsts:{subst:{subst:{:1},%programcode,{:2}},%programname,{:3}}
 
-@set here=_msgmacs/getRoomList:{parse:curr,{listprops:_holodeck/rooms/,here},{subst:{&curr},_holodeck/rooms/,}}
-
-@set here=_msgmacs/currentProgram:{with:val,{prop:_holodeck/current,here},{if:{eq:{&val},},Off,{&val}}}
-
-@set here=_msgmacs/isOff?:{eq:off,{currentProgram}}
-
-@set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{with:val,{prop:_holodeck/rooms/{:1}/name},{if:{eq:{&val},},{:1},{&val}}}}
-@set here=_msgmacs/cleanName:{lcommon:{:1},{getRoomList}}
+HOLODECK - EXITS
 
 @set here=_msgmacs/getExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{sublist:{subst:{&curr},_holodeck/rooms/{:1}/exits/,},1,1,;}}
 @set here=_msgmacs/getFullExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{subst:{&curr},_holodeck/rooms/{:1}/exits/,}}
 @set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}
 @set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits ('go <exit>'): {&fExits} ]}}
 
+HOLODECK - DETAIL FUNCTIONS
 
 @set here=_msgmacs/clearDetails:{delprop:_details,{getdbref}}
 
@@ -71,13 +107,11 @@ lsedit here=_holodeck/scripts/functions/copyDetails
 .end
 
 
-)) Zonelist
-@set here=_msgmacs/getZoneList:{lsort:{lremove:{lunique:{parse:curr,{listprops:_holodeck/rooms/,here},{prop:{&curr}/zone,here}}},\r}}
-)) 1 - The zone to get the rooms for. Leave blank to get rooms without a zone.
-@set here=_msgmacs/getZoneRooms:{parse:currParse,{filter:curr,{listprops:_holodeck/rooms/,here},{eq:{prop:{&curr}/zone,here},{:1}}},{subst:{&currPArse},_holodeck/rooms/,}}
-
+HOLODECK - ADMIN FUNCTIONS
 
 @set here=_msgmacs/isAdmin?:{or:{dbeq:{owner:here},me},{if:{lmember:{listprops:_holodeck,here},_holodeck/adminlock},{testlock:here,_holodeck/adminlock,me}}}
+
+HOLODECK - AUTOSHUTDOWN
 
 @set here=_msgmacs/getDbref:{prop:_holodeck/dbref}
 @set here=_msgmacs/anyAwake?:{fold:l,r,0\r{contents:{getdbref},player},{add:{&l},{awake:{&r}}}}
