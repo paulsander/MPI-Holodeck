@@ -225,36 +225,66 @@ lsedit here=_holodeck/scripts/commands/go
         {if:
             {isOff?},
             {tell:> The holodeck is off! You can switch it on with 'switch <program>'.}, 
-            {with:dest,/,
+            {with:dest,{findExitProp2:{currentProgram},{&arg},dest,arg,/},
             {if:
-                {null:
-                    {foreach:fExit,{getFullExits:{currentProgram}},
-                        {if:{and:{eq:{&dest},/},{lmember:{&fexit},{&arg},;}},
-                            {set:dest,{prop:_holodeck/rooms/{currentProgram}/exits/{&fExit}/dest,here}}
-                            {set:arg,{&fExit}}
-                        }
-                    }
-                }
                 {eq:{&dest},/}
                 ,
                 {tell:> That isn't a valid exit!},
-                
-                    {if:
-                        {or:
-                            {eq:{&dest},},
-                            {not:{propdir:_holodeck/rooms/{&dest},here}}
-                        },
-                        {tell:> Error! We're sorry\, the exit '{&arg}' on program '{currentProgram}' leads to an invalid destination of '{&dest}'.{nl}
-                                > Please report this to {name:{owner:here}}.},
-                        {set:dest,{cleanName:{&dest}}}
-                        {doExitMsg:{&arg},succ,{currentProgram},{getName:{currentProgram}}}
-                        {copyDetails:{&dest}}
-                        {store:{&dest},_holodeck/current,here}
-                        {tell:{holodesc}}
-                    }
+                {if:
+                    {or:
+                        {eq:{&dest},},
+                        {not:{propdir:_holodeck/rooms/{&dest},here}}
+                    },
+                    {tell:
+                        As you try to go that direction\, something in the simulation glitches.
+                        Please report the following to {name:{owner:here}}:
+                        [ Error: Program '{currentProgram}' Exit: '{&arg}' Destination: '{&dest}' ]
+                    },
+                    {doExitMsg:{&arg},succ,{currentProgram},{getName:{currentProgram}}}
+                    {copyDetails:{&dest}}
+                    {store:{&dest},_holodeck/current,here}
+                    {tell:{holodesc}}
+                }
             }
             }
         }
     }
 }
+.end
+
+Real exit dispatch
+
+@set here=_msgmacs/exitMove:{lexec:_holodeck/scripts/commands/exitMove}
+lsedit here=_holodeck/scripts/commands/exitMove
+.del 1 999
+{null:{set:arg,{&cmd}}}
+{null:
+    {if:{isOff?},
+        {tell:You can't go that way!}
+        ,    
+        {with:dest,{findExitProp2:{currentProgram},{&arg},dest,arg,/},
+            {if:
+                {eq:{&dest},/}
+                ,
+                {tell:Huh?},
+                {if:
+                    {or:
+                        {eq:{&dest},},
+                        {not:{propdir:_holodeck/rooms/{&dest},here}}
+                    },
+                    {tell:
+                        As you try to go that direction\, something in the simulation glitches.{nl}
+                        Please report the following to {name:{owner:here}}:{nl}
+                        [ Error: Program '{currentProgram}' Exit: '{&arg}' Destination: '{&dest}' ]
+                    },
+                    {doExitMsg:{&arg},succ,{currentProgram},{getName:{currentProgram}}}
+                    {copyDetails:{&dest}}
+                    {store:{&dest},_holodeck/current,here}
+                    {tell:{holodesc}}
+                }
+            }
+        }
+    }
+}
+
 .end
