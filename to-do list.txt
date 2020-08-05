@@ -5,3 +5,9 @@ IN PROGRESS:
 
 LATER:
 Add a discontinue/resume command to resume the last loaded program
+
+Admin commands:
+    Find missing details/succ/osucc messages
+    Enable real exits mode + real exits dispatcher
+        Also need a helper for renaming exits if I'm using this.
+    How to add admin users - probably not useful without having actually configurable settings from this menu
