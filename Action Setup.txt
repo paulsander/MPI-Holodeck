@@ -134,7 +134,7 @@ lsedit here=_holodeck/scripts/commands/list
             {tell:|{center:,78}|}
             {null:+{center:,78,-}+}
         }
-        {if:{count{getZoneRooms}},
+        {if:{count:{getZoneRooms}},
             {tell:|{center:(  Uncategorized  ),78, }|}
             {null:|{center:,78}|}
             {null:| {center:{center:,{strlen:(Uncategorized)},~},76} |}
