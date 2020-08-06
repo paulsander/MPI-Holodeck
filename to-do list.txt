@@ -8,6 +8,13 @@ Add a discontinue/resume command to resume the last loaded program
 
 Admin commands:
     Find missing details/succ/osucc messages
-    Enable real exits mode + real exits dispatcher
-        Also need a helper for renaming exits if I'm using this.
     How to add admin users - probably not useful without having actually configurable settings from this menu
+
+Might be better to implement multiple column printing functions. col1print, col2print, and so on. Probably won't need very many.
+    Can also have ones for different orientations. Col2printl, col2printr, etc.
+    Should be more efficient than trying to do variable amounts.
+
+    I also want the remainder items on the last row to distribute evenly, instead of sticking to a strict grid layout.
+        I also kind of want a 3/1 row layout to display as 2 x 2 instead? Not sure how to manage the logic for that.
+        I think that's the only case where it'd apply? Unless there was like, a 8/1 row split and I wanted to switch it to 3/3?
+            I don't even know how useful it is to generalize this.
