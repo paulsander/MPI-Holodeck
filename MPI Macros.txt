@@ -21,6 +21,29 @@ HOLODECK - DESCRIPTIONS
 )) prop to get the appropriate description. If the program is set to 'off' it fetches the holodeck's default.
 @set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}{nl}}{obvExits}}
 
+)) {exitdesc} - Generates a description for any actions set up to be exits for the holodeck.
+@set here=_msgmacs/exitdesc:{if:{isOff?},I don't see {&arg} here.,{with:edExitName,{findExit:{currentProgram},{&arg}},{if:{&edExitName},{default:{getExitProp:{currentProgram},{&edExitName},detail},You see nothing special.},{default:{findDetailProp:{currentProgram},{&arg}},I don't see {&arg} here.}}}}
+
+{if:{isOff?},I don't see {&arg} here.,{with:edExitName,{findExit:{currentProgram},{&arg}},{if:{&edExitName},{default:{getExitProp:{currentProgram},{&edExitName},detail},You see nothing special.},{default:{findDetailProp:{currentProgram},{&arg}},I don't see {&arg} here.}}}}
+
+// So I'm going to have &arg available, which is going to be the exact exit name.
+// First we should check if that is even an exit for this specific room we're in.
+
+{if:{isOff?},
+    I don't see {&arg} here.,
+    {with:edExitName,{findExit:{currentProgram},{&arg}},
+        {if:
+            {&edExitName},      // did we get an actual exit?
+            // if so, we can output that desc or the default
+            {default:{getExitProp:{currentProgram},{&edExitName},detail},You see nothing special.},
+            // Otherwise, we need to check for details...
+            {default:{findDetailProp:{currentProgram},{&arg}},I don't see {&arg} here.}
+        }
+    }
+}
+
+
+
 HOLODECK - ZONE AND ROOM INFORMATION
 
 @set here=_msgmacs/getName:{if:{eq:{:1},Off},Off,{with:val,{prop:_holodeck/rooms/{:1}/name},{if:{eq:{&val},},{:1},{&val}}}}
@@ -177,6 +200,78 @@ lsedit here=_holodeck/scripts/functions/copyDetails
 }
 .end
 
+@set here=_msgmacs/getFullDetails:{parse:curr,{listprops:_holodeck/rooms/{:1}/details,here},{subst:{&curr},_holodeck/rooms/{:1}/details/,}}
+
+
+)) {findDetail: room, detail } - Searched the given room to find the full name for the specified detail
+))                           Returns null if no exit is found.
+)) 1 - room         - the room to search
+)) 2 - detail       - the detail name you're searching for
+)) Returns: the full detail name, if it exists, otherwise null.
+@set here=_msgmacs/findDetail:{fold:l,r,\r{getFullDetails:{:1}},{if:{and:{not:{&l}},{lmember:{&r},{:2},;}},{&r},{&l}}}
+
+=====
+{fold:l,r,\r{getFullExits:{:1}},
+    {if:
+        {and:{not:{&l}},{lmember:{&r},{:2},;}},
+        {&r},
+        {&l}
+    }
+}
+
+=====
+
+)) {findDetailProp: room, detail, default? } - Searched the given room to find the specifid detail,
+))                                             and then return the detail's text. Returns "" or
+))                                             the specified default if nothing is found.
+)) Returns null if no exit is found.
+)) 1 - room         - the room to search
+)) 2 - detail       - the detail name you're searching for
+)) 3 - default?     - (Optional) The value to return if nothing is found.
+@set here=_msgmacs/findDetailProp:{fold:l,r,{:3}\r{getFullDetails:{:1}},{if:{and:{eq:{&l},{:3}},{lmember:{&r},{:2},;}},{prop:_holodeck/rooms/{:1}/details/{&r},here},{&l}}}
+
+
+
+// So this is the setup; our seed values are our default and the first list item
+// So if the left item is the default, and the right value contains our search return, we want to return the right specified
+// Otherwise we want to just return the left hand specified
+{fold:l,r,{:3}\r{getFullDetails:{:1}},
+    {if:
+        {and:{eq:{&l},{:3}},{lmember:{&r},{:2},;}},
+            {prop:_holodeck/rooms/{:1}/details/{&r},here},
+        {&l}
+    }
+}
+
+)) {findDetailProp2: room, exit, variable, default? } - Searches the given room to find the specifid detail,
+))                                                    and then return the detail's text. Returns "" or
+))                                                    the specified default if nothing is found.
+)) Returns default if no detail is found.
+)) 1 - room         - the room to search
+)) 2 - exit         - the detail name you're searching for
+)) 3 - variable     - The name of a variable you want to save the full detail name to
+)) 4 - default?     - (Optional) The value to return if nothing is found.
+@set here=_msgmacs/findDetailProp2:{fold:l,r,{:4}\r{getFullDetails:{:1}},{if:{and:{eq:{&l},{:4}},{lmember:{&r},{:2},;}},{prop:_holodeck/rooms/{:1}/details/{&r},here}{null:{set:{:3},{&r}}},{&l}}}
+
+
+// So this is the setup; our seed values are our default and the first list item
+// So if the left item is the default, and the right value contains our search return, we want to return the right specified
+// Otherwise we want to just return the left hand specified
+{fold:l,r,{:4}\r{getFullDetails:{:1}},
+    {if:
+        {and:{eq:{&l},{:4}},{lmember:{&r},{:2},;}},
+        {prop:_holodeck/rooms/{:1}/details/{&r},here}
+        {null:{set:{:3},{&r}}},
+        {&l}
+    }
+}
+
+
+)) {getDetailProp: room, detail, default?} - Retrieves the specified detail for the given room.
+)) 1 - room     - The room containing the exit to retrieve the prop from
+)) 2 - detail   - The detail name to get the value from - must be the full name.
+)) 3 - default? - (Optional) A default value to return if the specified value isn't found
+@set here=_msgmacs/getDetailProp:{default:{prop:_holodeck/rooms/{:1}/details/{:2}, here},{:3}}
 
 HOLODECK - ADMIN FUNCTIONS
 
