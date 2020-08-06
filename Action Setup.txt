@@ -74,7 +74,7 @@ lsedit here=_holodeck/scripts/commands/status
             {lit:|      },{lit:      |}
         }
 
-        {with:exits,{parse:cExit,{getExits:{CurrentProgram}},<{&cExit}>},
+        {with:exits,{getExits:{CurrentProgram}},
             {with:maxLength,{fold:l,r,\r{&exits},{max:{&l},{strlen:{&r}}}},
             {with:columnNum,{div:60,{&maxLength}},
                 {null:This is checking if I have enough space for the padding between names.}

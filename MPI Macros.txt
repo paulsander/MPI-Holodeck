@@ -75,8 +75,8 @@ HOLODECK - EXITS
 
 @set here=_msgmacs/getExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{sublist:{subst:{&curr},_holodeck/rooms/{:1}/exits/,},1,1,;}}
 @set here=_msgmacs/getFullExits:{parse:curr,{listprops:_holodeck/rooms/{:1}/exits,here},{subst:{&curr},_holodeck/rooms/{:1}/exits/,}}
-@set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,<{&curr}>}
-@set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{ne:{&fExits},},[ Obvious Exits ('go <exit>'): {&fExits} ]}}
+@set here=_msgmacs/fmtExits:{commas:{getExits:{currentProgram}}, and ,curr,{&curr}}
+@set here=_msgmacs/obvExits:{with:fExits,{fmtExits},{if:{&fExits},[ Obvious Exits: {&fExits} ]}}
 
 )) {findExit: room, exit } - Searched the given room to find the full name for the specified exit
 ))                           Returns null if no exit is found.
