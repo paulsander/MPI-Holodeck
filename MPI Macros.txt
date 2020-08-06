@@ -182,6 +182,99 @@ HOLODECK - ADMIN FUNCTIONS
 
 @set here=_msgmacs/isAdmin?:{or:{dbeq:{owner:here},me},{if:{lmember:{listprops:_holodeck,here},_holodeck/adminlock},{testlock:here,_holodeck/adminlock,me}}}
 
+)) {genExitList} - Generates a full exit list for all the rooms
+// So first we would need to get all the rooms, and then get all the exits from those rooms
+
+
+@set here=_msgmacs/genExitList:{with:gelExitList,{list:_holodeck/admin/realexits,here},{with:gelList,{subst:{lunique:{subst:{fold:l,r,\r{listprops:_holodeck/rooms/,here},{if:{&l},{&l}\r}{subst:{listprops:{&r}/exits/,here},{&r}/exits/,}},;,\r}},\r,;},{if:{gt:{strlen:{&gelList}},1000},{null:{tell:>>> List is greater than 1000 characters; you may need to split this into multiple exits.}}}{if:{eq:{strlen:{&gelList}},4095},{null:{tell:>>> Maximum line length reached! All exits may not have been correctly captured!}}}{null:{tell:@name {dequeue:gelExitList}={&gelList}}}}}
+
+
+
+{with:gelExitList,{list:_holodeck/admin/realexits,here},
+{with:gelList,
+    {subst:
+        {lunique:
+            {subst:
+                {fold:l,r,\r{listprops:_holodeck/rooms/,here},
+                    {if:{&l},{&l}\r}{subst:{listprops:{&r}/exits/,here},{&r}/exits/,}
+                },
+                ;,
+                \r
+            }
+        },
+        \r,
+        ;
+    },
+    // So from here we can output a string list. Add a warning in case the list goes way too long.
+    // TODO: I'll worry about the actual splitting later when I need it. For now I just want it done.
+    {if:{gt:{strlen:{&gelList}},1000},
+        {null:{tell:>>> List is greater than 1000 characters; you may need to split this into multiple exits.}}
+    }
+    {if:{eq:{strlen:{&gelList}},4095},
+        {null:{tell:>>> Maximum line length reached! All exits may not have been correctly captured!}}
+    }
+    // Now that the warnings are out of the way
+    {null:{tell:@name {dequeue:gelExitList}={&gelList}}}
+}
+}
+
+// So at certain intervals we'd want to compress the list, and at
+// another threshold we'd want to actually peel off items and emit an exit list
+// Actually if I don't do that right then I'll do it repeatedly. So I should do that all in one step
+// So what's my threshold? I'll say 3000, just to be safe.
+// But I'm not going to bother with this now, since I don't have that many rooms.
+I'll implement this later when I get more and I can efficiently test it.
+
+
+
+}} {dequeue: variable} - Takes the list stored in the variable and removes the first element.
+)) 1 - variable - The variable the list is stored in.
+@set here=_msgmacs/dequeue:{sublist:{&{:1}},1}{null:{if:{gt:{count:{&{:1}}},1},{set:{:1},{sublist:{&{:1}},2,-1}},{set:{:1},}}}
+=====
+{sublist:{&{:1}},1}
+{null:
+    {if:{gt:{count:{&{:1}}},1},
+        {set:{:1},{sublist:{&{:1}},2,-1}},
+        {set:{:1},}
+    }
+}
+=====
+
+)) {peelOffExits: exitlist} - parses an exit list into multiple strings that can actually be set.
+
+=====
+{with:lines,,
+    {with:remInput,,
+    {null:
+        // Let's try it this way.
+        // While our remaining input is greater than our wrap width.
+        {while:{gt:{strlen:{&remInput}},900},
+            {with:tStr,{midstr:{&remInput},1,{add:900+,1}},
+                // I have my temporary string. Now I need to find my next chunk.\
+                // If there is a space, we get that index. If there's /no/ space, then we get the full width.
+            {with:tStart,{rinstr:{&tStr},;},
+            {with:tEnd,0,
+                {if:{&tStart},
+                    {dec:tStart}
+                    {set:tEnd,{add:{&tStart},2}},
+                    {set:tStart,{:2}}
+                    {set:tEnd,{add:{:2},1}}
+                }
+                {set:lines,{mklist:{&lines},{midstr:{&remInput},1,{&tstrt}}}}
+                {set:remInput,{strip:{midstr:{&remInput},{&tEnd},-1}}},
+            }
+            }
+            }
+        }
+        {set:lines,{mkList:{&lines},{&remInput}}}
+    }
+    }
+    {&lines}
+}
+=====
+
+
+
 HOLODECK - AUTOSHUTDOWN
 
 @set here=_msgmacs/getDbref:{prop:_holodeck/dbref}
@@ -200,6 +293,14 @@ GUI MACROS
             {:1},
             {tell:{:2}{left:{&curr},{&lrbw}}{:3}}}
         }}
+
+)) {gui/JagSep: width? } - Draws a jagged line separator.
+)) 1 - width?   - (Optional) the width of the field to draw too. Default is 80.
+@set here=_msgmacs/gui/JagSep:{null:{tell:{gui/jagSep2:{:1}}}}
+
+)) {gui/JagSep2: width? } - Creates a jagged seprator line but does not emit it.
+)) 1 - width?   - (Optional) the width of the field to draw too. Default is 80.
+@set here=_msgmacs/gui/JagSep2:{center:,{default:{:1},80},/\\}
 
 STRING MACROS
 

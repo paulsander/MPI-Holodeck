@@ -13,9 +13,27 @@ lsedit here=_holodeck/scripts/commands/admin
             {gui/header:Holodeck Administrative Menu}
             {gui/lrborder:
                 {lit: }{nl}
-                No administrative functionalities installed yet.{nl}
+                Keeping exits up to date:{nl}
                 {lit: }
-                {lit: }
+                Use 'lsedit here=_holodeck/admin/realExits' to enter all of the{nl}
+                actions you wish to use as virtual exits.{nl}
+                {lit: }{nl}
+                Enter one exit dbref per line\, and make sure to include the #!{nl}
+                {lit: }{nl}
+                Here is your current exit list:{nl}
+                {lit: }{nl}
+                ,
+                {lit:|      },{lit:      |}
+            }
+            {tell:|{gui/jagsep2:78}|}
+            {tell: \r}
+            {genExitList}
+            {tell: \r}
+            {tell:|{gui/jagsep2:78}|}
+            {gui/lrborder:
+                {lit: }{nl}
+                More to come!
+                {lit: }{nl}
                 ,
                 {lit:|      },{lit:      |}
             }
