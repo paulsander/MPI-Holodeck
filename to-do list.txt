@@ -18,3 +18,15 @@ Might be better to implement multiple column printing functions. col1print, col2
         I also kind of want a 3/1 row layout to display as 2 x 2 instead? Not sure how to manage the logic for that.
         I think that's the only case where it'd apply? Unless there was like, a 8/1 row split and I wanted to switch it to 3/3?
             I don't even know how useful it is to generalize this.
+
+    Renaming exits/rooms is kind of onerous right now. Is there a way to make this better?
+        You'd need to have some kind of throwaway ID for the directory prop, and then the full name after.
+        Something like _holodeck/rooms/SomeProgramName/exits/blah/name:(N)orth;north;n
+
+        * Thoughts: Maybe add some kind of 'render'/'bake' functionality to it can cache this info for easier access, instead of having to rescan everything every time?
+            But there's some issues with that, of course. No way to tell it's up to date, requiring a user to do extra steps to install a program.
+
+        * Corrolary idea: Some kind of name/prefix type thing? So you can install a pack from a given user and just run update scripts without clashing with other stuff? Hmmmm.
+
+    Convey the action descs/icons better.
+        Leave could maybe be a door icon.
