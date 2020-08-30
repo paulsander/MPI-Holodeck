@@ -25,12 +25,8 @@ A pathway leads <north> away from the fire.
 @set here=_holodeck/rooms/Village Hut/name:Village Resting Place (Test Name Func)
 lsedit here=_holodeck/rooms/Village Hut/desc
 .del 1 999
-There's a quiet resing place.
-There's not much else here.
-A pathway leads <south> towards a giant bonfire.
-You can try to <spin> around in a circle, but you'll probably just wind up here again...
-If you want to purposefully trigger an <error>, you can also do that here.
-And now there is a [bed] here for you to look at. Fancy!
+This hut is nice and quiet, a safe respite. In the corner you can see a [bed]. Outside the hut, a dirt path south leads back to the bonfire. And outside is a field you can spin around in, if you so choose.
+Curiously there's a couple of glitches in the simulation here. Do you dare approach them?
 .end
 @set here=_holodeck/rooms/Village Hut/zone:Tribal Village
 @set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/dest:Ritual Bonfire
@@ -97,8 +93,7 @@ It's a principal's office!
 @set here=_holodeck/rooms/Principal's Office/exits/out/osucc:{name:me} leaves the office.
 @set here=_holodeck/rooms/Principal's Office/exits/out/detail:It's a door.
 
-lsedit here=_holodeck/rooms/Bob/desc
+lsedit here=_holodeck/rooms/Lonely Room/desc
 .del 1 999
-All is Bob.
-There are no exits.
+This is here to test a room with no exits. And also a room by itself in the uncategorized zone.
 .end
