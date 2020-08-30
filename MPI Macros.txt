@@ -22,7 +22,7 @@ HOLODECK - DESCRIPTIONS
 @set here=_msgmacs/holodesc:{if:{isoff?},{eval:{list:_holodeck/default/desc}},<<{getname:{currentprogram}}>>{nl}{eval:{list:_holodeck/rooms/{currentProgram}/desc}{nl}}{obvExits}}
 
 )) {exitdesc} - Generates a description for any actions set up to be exits for the holodeck.
-@set here=_msgmacs/exitdesc:{if:{isOff?},I don't see {&arg} here.,{with:edExitName,{findExit:{currentProgram},{&arg}},{if:{&edExitName},{default:{getExitProp:{currentProgram},{&edExitName},detail},You see nothing special.},{default:{findDetailProp:{currentProgram},{&arg}},I don't see {&arg} here.}}}}
+@set here=_msgmacs/exitdesc:{if:{isOff?},I don't see {&arg} here.,{with:edExitName,{findExit:{currentProgram},{&arg}},{if:{&edExitName},{default:{getExitProp:{currentProgram},{&edExitName},de},You see nothing special.},{default:{findDetailProp:{currentProgram},{&arg}},I don't see {&arg} here.}}}}
 
 {if:{isOff?},I don't see {&arg} here.,{with:edExitName,{findExit:{currentProgram},{&arg}},{if:{&edExitName},{default:{getExitProp:{currentProgram},{&edExitName},detail},You see nothing special.},{default:{findDetailProp:{currentProgram},{&arg}},I don't see {&arg} here.}}}}
 
@@ -189,7 +189,7 @@ lsedit here=_holodeck/scripts/functions/copyDetails
     {with:currentDetail,"",
         {foreach:currExit,{&exits},
             {set:currentDetail,
-                {prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/detail,here}
+                {prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/de,here}
             }
             {if:{eq:{&currentDetail},},
                 {set:currentDetail,You see the exit for '{&currExit}' that leads to '{cleanName:{prop:_holodeck/rooms/{&pcode}/exits/{&currExit}/dest,here}}'.}

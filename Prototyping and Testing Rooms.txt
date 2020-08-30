@@ -18,16 +18,16 @@ Curiously there's a couple of glitches in the simulation here. Do you dare appro
 @set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/dest:Ritual Bonfire
 @set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/succ:You head down the path to the bonfire.
 @set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/osucc:{name:me} heads down the path to the bonfire.
-@set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/detail:A beaten dirt path that leads to a bonfire flickering in the distance.
+@set here=_holodeck/rooms/Village Hut/exits/(S)outh;south;s/de:A beaten dirt path that leads to a bonfire flickering in the distance.
 @set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/dest:Village Hut
 @set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/succ:You spin around crazily and then fall over where you started.
 @set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/osucc:{name:me} spins around crazily and then falls over where %s started.
-@set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/detail:A huge open field that you can spin in to your heart's content.
+@set here=_holodeck/rooms/Village Hut/exits/(Sp)in;spin;sp/de:A huge open field that you can spin in to your heart's content.
 @set here=_holodeck/rooms/Village Hut/exits/error/dest:errorDest
 @set here=_holodeck/rooms/Village Hut/exits/error/succ:You spin around crazily and then fall over where you started.
 @set here=_holodeck/rooms/Village Hut/exits/error/osucc:{name:me} spins around crazily and then falls over where %s started.
-@set here=_holodeck/rooms/Village Hut/exits/error/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
-@set here=_holodeck/rooms/Village Hut/exits/error2/detail:---<<< WARNING! THIS DOES NOT WORK! >>>---
+@set here=_holodeck/rooms/Village Hut/exits/error/de:---<<< WARNING! THIS DOES NOT WORK! >>>---
+@set here=_holodeck/rooms/Village Hut/exits/error2/de:---<<< WARNING! THIS DOES NOT WORK! >>>---
 @set here=_holodeck/rooms/Village Hut/details/bed:This is a nice, soft bed for when you're tired of doing ritual bonfire stuff.
 
 
@@ -39,7 +39,7 @@ It's a nurse's office!
 @set here=_holodeck/rooms/Nurse's Office/exits/out/dest:School Hallway
 @set here=_holodeck/rooms/Nurse's Office/exits/out/succ:You leave the office.
 @set here=_holodeck/rooms/Nurse's Office/exits/out/osucc:{name:me} leaves the office.
-@set here=_holodeck/rooms/Nurse's Office/exits/out/detail:It's a door.
+@set here=_holodeck/rooms/Nurse's Office/exits/out/de:It's a door.
 
 lsedit here=_holodeck/rooms/School Hallway/desc
 .del 1 9999
@@ -49,15 +49,15 @@ It's a school hallway!
 @set here=_holodeck/rooms/School Hallway/exits/Nurse/dest:Nurse's Office
 @set here=_holodeck/rooms/School Hallway/exits/Nurse/succ:You leave the office.
 @set here=_holodeck/rooms/School Hallway/exits/Nurse/osucc:{name:me} leaves the office.
-@set here=_holodeck/rooms/School Hallway/exits/Nurse/detail:It's a door.
+@set here=_holodeck/rooms/School Hallway/exits/Nurse/de:It's a door.
 @set here=_holodeck/rooms/School Hallway/exits/Classroom/dest:Classroom
 @set here=_holodeck/rooms/School Hallway/exits/Classroom/succ:You leave the office.
 @set here=_holodeck/rooms/School Hallway/exits/Classroom/osucc:{name:me} leaves the office.
-@set here=_holodeck/rooms/School Hallway/exits/Classroom/detail:It's a door.
+@set here=_holodeck/rooms/School Hallway/exits/Classroom/de:It's a door.
 @set here=_holodeck/rooms/School Hallway/exits/Principal/dest:Principal's Office
 @set here=_holodeck/rooms/School Hallway/exits/Principal/succ:You leave the office.
 @set here=_holodeck/rooms/School Hallway/exits/Principal/osucc:{name:me} leaves the office.
-@set here=_holodeck/rooms/School Hallway/exits/Principal/detail:It's a door.
+@set here=_holodeck/rooms/School Hallway/exits/Principal/de:It's a door.
 
 lsedit here=_holodeck/rooms/Classroom/desc
 .del 1 9999
@@ -67,7 +67,7 @@ It's a classroom!
 @set here=_holodeck/rooms/Classroom/exits/out/dest:School Hallway
 @set here=_holodeck/rooms/Classroom/exits/out/succ:You leave the office.
 @set here=_holodeck/rooms/Classroom/exits/out/osucc:{name:me} leaves the office.
-@set here=_holodeck/rooms/Classroom/exits/out/detail:It's a door.
+@set here=_holodeck/rooms/Classroom/exits/out/de:It's a door.
 
 lsedit here=_holodeck/rooms/Principal's Office/desc
 .del 1 9999
@@ -77,7 +77,7 @@ It's a principal's office!
 @set here=_holodeck/rooms/Principal's Office/exits/out/dest:School Hallway
 @set here=_holodeck/rooms/Principal's Office/exits/out/succ:You leave the office.
 @set here=_holodeck/rooms/Principal's Office/exits/out/osucc:{name:me} leaves the office.
-@set here=_holodeck/rooms/Principal's Office/exits/out/detail:It's a door.
+@set here=_holodeck/rooms/Principal's Office/exits/out/de:It's a door.
 
 lsedit here=_holodeck/rooms/Lonely Room/desc
 .del 1 999
