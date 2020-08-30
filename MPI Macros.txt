@@ -185,7 +185,7 @@ lsedit here=_holodeck/scripts/functions/copyDetails
         {store:{prop:_holodeck/rooms/{&pcode}/details/{&curr},here},_details/{&curr},here}
     }
 }
-{with:exits,{getExits:{&pcode}},
+{with:exits,{getFullExits:{&pcode}},
     {with:currentDetail,"",
         {foreach:currExit,{&exits},
             {set:currentDetail,
