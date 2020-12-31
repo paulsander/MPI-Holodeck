@@ -13,3 +13,27 @@ You are in a large black room with an orange grid covering all of the walls and 
 @set here=_depart/autoshutdown:&{autoshutdown}
 
 @set here=_holodeck/rooms/:
+@set here=_holodeck/rooms/Dorm/name:Dorm Room
+lsedit here=_holodeck/rooms/Dorm/desc
+.del 1 999
+This cozy dorm is designed to host four students. Stepping in from the hallway, one finds themselves in a long and narrow common room stretching out away from them. Immediately to ones left is a small kitchenette outfitted with just the basics: sink, stove, microwave, fridge, several cupboards, and a minimal amount of counter space. White tile and countertops mark the space here, with natural wood cabinetry. Outside of the kitchenette calm blue carpetting runs the entire length of the common area. A small round wooden table and four chairs that match the kitchen cabinets sits just on the other side of the kitchen counter.
+On the far end of the common room sits a couch, two chairs, and several tables, arrayed around a small entertainment unit boasting a TV and a Blu-Ray player. Just beyond that is a sliding glass door that leads to a small confined patio with white plastic furniture.
+On the left side of the dormitory, two bedrooms occupy the corners, with a shared bathroom and shower in between them. On the right side of the dorm the same setup is mirrored, providing two bathrooms to share between the four residents.
+.end
+@set here=_holodeck/rooms/Dorm/zone:College
+@set here=_holodeck/rooms/Dorm/exits/(B)edroom;bedroom;bed;b/dest:Dormbed
+@set here=_holodeck/rooms/Dorm/exits/(B)edroom;bedroom;bed;b/succ:You head into the bedroom.
+@set here=_holodeck/rooms/Dorm/exits/(B)edroom;bedroom;bed;b/osucc:{name:me} heads into the bedroom.
+@set here=_holodeck/rooms/Dorm/exits/(B)edroom;bedroom;bed;b/de:A wooden door leads into the bedroom.
+
+@set here=_holodeck/rooms/Dormbed/name:Dorm Bedroom
+lsedit here=_holodeck/rooms/Dormbed/desc
+.del 1 999
+This room is both bedroom and study space for its occupent. Finished hardwood flooring makes up the floor. The door lets one in on one corner of the room, and immediately to the right is both a sink and a closet with sliding doors. Arrayed around the sink is a cup with a toothbrush, a tube of toothpaste, and a comb and a fur brush. The closet has both a rod for hanging clothes and a small dresser with slide-out drawers.
+In the corner opposite from the door is a neatly made bed, and in the remaining corner is a small wooden desk, with two small file cabinets on either end and several rows of shelving up above. A laptop rests there, hooked up to a dock and two large monitors. Hanging on the walls are various posters to the inhabitant's taste.
+.end
+@set here=_holodeck/rooms/Dormbed/zone:College
+@set here=_holodeck/rooms/Dormbed/exits/(O)ut;out;o/dest:Dorm
+@set here=_holodeck/rooms/Dormbed/exits/(O)ut;out;o/succ:You head into the dormroom.
+@set here=_holodeck/rooms/Dormbed/exits/(O)ut;out;o/osucc:{name:me} heads into the dormroom.
+@set here=_holodeck/rooms/Dormbed/exits/(O)ut;out;o/de:A wooden door leads into the dormroom.
