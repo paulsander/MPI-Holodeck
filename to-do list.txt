@@ -30,3 +30,18 @@ Might be better to implement multiple column printing functions. col1print, col2
 
     Convey the action descs/icons better.
         Leave could maybe be a door icon.
+
+    Have a way to hide 'minor' rooms from the program listing. Probably a flag or setting.
+
+    Could also easily have a way to hide exits from obvious exits listing, if I wanted.
+
+    Program listing adds an extra blank line if the unlisted zone isn't used.
+
+    Also, I could probably come up with some sort of render/generate action for various aspects of the program, like:
+        Pregenerate the program listing and store it so it doesn't have to recreate it every single time.
+        Pre-generate obvious exits.
+        Cache some lookup info for exits and the like, if I switch how I store those.
+
+    Still need to see if I can find a way to hide/obfuscate the room name.
+
+    Mkae osucc exits append player name if it's not anywhere in the message itself.
